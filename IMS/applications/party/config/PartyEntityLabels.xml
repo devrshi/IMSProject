@@ -4208,4 +4208,8 @@
         <value xml:lang="zh">阈值</value>
         <value xml:lang="zh_TW">閾值</value>
     </property>
+    
+     <property key="userName">
+        <value xml:lang="en">User Name</value>
+    </property>
 </resource>
