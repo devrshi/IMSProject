@@ -53,4 +53,12 @@
         <value xml:lang="en">New Fee</value>
     </property>
     
+      <property key="courseMaster">
+        <value xml:lang="en">Course Master</value>
+    </property>
+    
+      <property key="saurabhMaster">
+        <value xml:lang="en">Saurabh Master</value>
+    </property>
+    
 </resource>
