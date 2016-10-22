@@ -4212,4 +4212,8 @@
      <property key="userName">
         <value xml:lang="en">User Name</value>
     </property>
+    
+      <property key="courseMaster">
+        <value xml:lang="en">Course Master</value>
+    </property>
 </resource>
