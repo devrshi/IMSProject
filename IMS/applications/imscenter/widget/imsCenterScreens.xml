@@ -225,11 +225,11 @@
             <widgets>
                 <decorator-screen name="imsCenterCommonDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="New Subject Master">
+                        <screenlet title="New Fee Master">
                             <section>
                                 <widgets>
                                    <platform-specific>
-                                            <html><html-template location="component://imscenter/webapp/imscenter/subjectDetails/AddFeeMaster.ftl"/></html>
+                                            <html><html-template location="component://imscenter/webapp/imscenter/feeDetails/AddFeeMaster.ftl"/></html>
                                         </platform-specific>
                                 </widgets>
                             </section>
