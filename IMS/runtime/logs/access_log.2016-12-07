@@ -1,0 +1,5 @@
+0:0:0:0:0:0:0:1 - - [07/Dec/2016:23:10:20 +0530] "GET /partymgr/control/main HTTP/1.1" 500 1999 "-" "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0"
+0:0:0:0:0:0:0:1 - - [07/Dec/2016:23:10:20 +0530] "GET /imsportal/control/main HTTP/1.1" 404 - "-" "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0"
+0:0:0:0:0:0:0:1 - - [07/Dec/2016:23:10:21 +0530] "GET /favicon.ico HTTP/1.1" 404 - "-" "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0"
+0:0:0:0:0:0:0:1 - - [07/Dec/2016:23:10:43 +0530] "GET /imsportal/control/main HTTP/1.1" 404 - "-" "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0"
+0:0:0:0:0:0:0:1 - - [07/Dec/2016:23:11:23 +0530] "GET /imsportal/control/main HTTP/1.1" 404 - "-" "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0"

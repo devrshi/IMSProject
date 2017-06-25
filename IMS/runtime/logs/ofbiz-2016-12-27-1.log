@@ -1,0 +1,698 @@
+2016-12-27 00:00:06,893 |OFBiz-JobQueue-0     |PersistedServiceJob           |I| Job  [Delete auto-save shopping list for anonymous users] Id [10001] -- Next runtime: Wed Dec 28 00:00:00 IST 2016
+2016-12-27 00:00:06,987 |OFBiz-JobQueue-1     |PersistedServiceJob           |I| Job  [Create Also Bought Product Associations] Id [10000] -- Next runtime: Wed Dec 28 00:00:00 IST 2016
+2016-12-27 00:00:07,022 |OFBiz-JobQueue-1     |ServiceDispatcher             |T| Sync service [default/createAlsoBoughtProductAssocs] finished in [34] milliseconds
+2016-12-27 00:00:07,053 |OFBiz-JobQueue-1     |PersistedServiceJob           |I| Job  [Replacement Held Order Auto-Cancel] Id [10002] -- Next runtime: Wed Dec 28 00:00:00 IST 2016
+2016-12-27 00:00:07,110 |OFBiz-JobQueue-0     |GenericDAO                    |T| Ran query in 206 milli-seconds:  EntityName: ShoppingList Sql: SELECT SHOPPING_LIST_ID, SHOPPING_LIST_TYPE_ID, PARENT_SHOPPING_LIST_ID, PRODUCT_STORE_ID, VISITOR_ID, PARTY_ID, LIST_NAME, DESCRIPTION, IS_PUBLIC, IS_ACTIVE, CURRENCY_UOM, SHIPMENT_METHOD_TYPE_ID, CARRIER_PARTY_ID, CARRIER_ROLE_TYPE_ID, CONTACT_MECH_ID, PAYMENT_METHOD_ID, RECURRENCE_INFO_ID, LAST_ORDERED_DATE, LAST_ADMIN_MODIFIED, PRODUCT_PROMO_CODE_ID, LAST_UPDATED_STAMP, LAST_UPDATED_TX_STAMP, CREATED_STAMP, CREATED_TX_STAMP FROM public.SHOPPING_LIST WHERE ((PARTY_ID IS NULL AND SHOPPING_LIST_TYPE_ID = ?)) where clause:[SHOPPING_LIST_TYPE_ID=SLT_SPEC_PURP]
+2016-12-27 00:00:07,112 |OFBiz-JobQueue-0     |ServiceDispatcher             |T| Sync service [default/autoDeleteAutoSaveShoppingList] finished in [218] milliseconds
+2016-12-27 00:00:07,148 |OFBiz-JobQueue-0     |PersistedServiceJob           |I| Job  [BackOrder Notification] Id [10003] -- Next runtime: Wed Dec 28 00:00:00 IST 2016
+2016-12-27 00:00:07,315 |OFBiz-JobQueue-1     |GenericDAO                    |T| Ran query in 256 milli-seconds:  EntityName: ReturnHeader Sql: SELECT RETURN_ID, RETURN_HEADER_TYPE_ID, STATUS_ID, CREATED_BY, FROM_PARTY_ID, TO_PARTY_ID, PAYMENT_METHOD_ID, FIN_ACCOUNT_ID, BILLING_ACCOUNT_ID, ENTRY_DATE, ORIGIN_CONTACT_MECH_ID, DESTINATION_FACILITY_ID, NEEDS_INVENTORY_RECEIVE, CURRENCY_UOM_ID, SUPPLIER_RMA_ID, LAST_UPDATED_STAMP, LAST_UPDATED_TX_STAMP, CREATED_STAMP, CREATED_TX_STAMP FROM public.RETURN_HEADER WHERE ((STATUS_ID = ? AND RETURN_HEADER_TYPE_ID = ?)) ORDER BY ENTRY_DATE ASC where clause:[STATUS_ID=RETURN_ACCEPTED, RETURN_HEADER_TYPE_ID=CUSTOMER_RETURN]
+2016-12-27 00:00:07,320 |OFBiz-JobQueue-1     |ServiceDispatcher             |T| Sync service [default/autoCancelReplacementOrders] finished in [266] milliseconds
+2016-12-27 00:00:07,465 |OFBiz-JobQueue-1     |PersistedServiceJob           |W| Persisted Job [10005] references a RecurrenceInfo, recommend using TemporalExpression instead
+2016-12-27 00:00:07,491 |OFBiz-JobQueue-1     |PersistedServiceJob           |I| Job  [Auto Reconcile Financial Account] Id [10005] -- Next runtime: Sun Jan 01 00:00:00 IST 2017
+2016-12-27 00:00:07,841 |OFBiz-JobQueue-0     |GenericDAO                    |T| Ran query in 687 milli-seconds:  EntityName: InventoryItem Sql: SELECT INVENTORY_ITEM_ID, INVENTORY_ITEM_TYPE_ID, PRODUCT_ID, PARTY_ID, OWNER_PARTY_ID, STATUS_ID, DATETIME_RECEIVED, DATETIME_MANUFACTURED, EXPIRE_DATE, FACILITY_ID, CONTAINER_ID, LOT_ID, UOM_ID, BIN_NUMBER, LOCATION_SEQ_ID, COMMENTS, QUANTITY_ON_HAND_TOTAL, AVAILABLE_TO_PROMISE_TOTAL, ACCOUNTING_QUANTITY_TOTAL, QUANTITY_ON_HAND, AVAILABLE_TO_PROMISE, SERIAL_NUMBER, SOFT_IDENTIFIER, ACTIVATION_NUMBER, ACTIVATION_VALID_THRU, UNIT_COST, CURRENCY_UOM_ID, LAST_UPDATED_STAMP, LAST_UPDATED_TX_STAMP, CREATED_STAMP, CREATED_TX_STAMP, FIXED_ASSET_ID FROM public.INVENTORY_ITEM WHERE (AVAILABLE_TO_PROMISE_TOTAL < ?) where clause:[AVAILABLE_TO_PROMISE_TOTAL=0]
+2016-12-27 00:00:07,841 |OFBiz-JobQueue-0     |InventoryServices             |I| OOS Inventory Items: 0
+2016-12-27 00:00:07,844 |OFBiz-JobQueue-0     |ServiceDispatcher             |T| Sync service [default/checkInventoryAvailability] finished in [695] milliseconds
+2016-12-27 00:00:07,893 |OFBiz-JobQueue-0     |PersistedServiceJob           |I| Job  [Purge Old Store Auto-Entered Promos] Id [10006] -- Next runtime: Wed Dec 28 00:00:00 IST 2016
+2016-12-27 00:00:08,215 |OFBiz-JobQueue-0     |GenericDAO                    |T| Ran query in 314 milli-seconds:  EntityName: ProductStorePromoAndAppl Sql: SELECT PP.PROMO_NAME, PP.USER_ENTERED, PSPA.FROM_DATE, PSPA.SEQUENCE_NUM, PSPA.MANUAL_ONLY, PSPA.PRODUCT_STORE_ID, PSPA.PRODUCT_PROMO_ID, PSPA.THRU_DATE FROM public.PRODUCT_STORE_PROMO_APPL PSPA INNER JOIN public.PRODUCT_PROMO PP ON PSPA.PRODUCT_PROMO_ID = PP.PRODUCT_PROMO_ID WHERE ((PSPA.PRODUCT_STORE_ID IS NULL AND PP.USER_ENTERED = ? AND PSPA.THRU_DATE IS NOT NULL AND PSPA.THRU_DATE < ?)) where clause:[PP_USER_ENTERED=Y, PSPA_THRU_DATE=2016-12-27 00:00:07.895]
+2016-12-27 00:00:08,217 |OFBiz-JobQueue-0     |ServiceDispatcher             |T| Sync service [default/purgeOldStoreAutoPromos] finished in [323] milliseconds
+2016-12-27 00:00:08,241 |OFBiz-JobQueue-0     |PersistedServiceJob           |I| Job  [Clear EntitySyncRemove Info] Id [10008] -- Next runtime: Wed Dec 28 00:00:00 IST 2016
+2016-12-27 00:00:08,244 |OFBiz-JobQueue-0     |EntitySyncServices            |I| Running cleanSyncRemoveInfo
+2016-12-27 00:00:08,470 |OFBiz-JobQueue-0     |EntitySyncServices            |I| In cleanSyncRemoveInfo removed [0] values with TX timestamp before [2016-12-26 00:00:08.389]
+2016-12-27 00:00:08,472 |OFBiz-JobQueue-0     |ServiceDispatcher             |T| Sync service [default/cleanSyncRemoveInfo] finished in [230] milliseconds
+2016-12-27 00:00:08,498 |OFBiz-JobQueue-0     |PersistedServiceJob           |I| Job  [Re-Try Failed Auths NSF] Id [10009] -- Next runtime: Wed Dec 28 00:00:00 IST 2016
+2016-12-27 00:00:08,981 |OFBiz-JobQueue-0     |GenericDAO                    |T| Ran query in 478 milli-seconds:  EntityName: OrderPaymentPreference Sql: SELECT ORDER_PAYMENT_PREFERENCE_ID, ORDER_ID, ORDER_ITEM_SEQ_ID, SHIP_GROUP_SEQ_ID, PRODUCT_PRICE_PURPOSE_ID, PAYMENT_METHOD_TYPE_ID, PAYMENT_METHOD_ID, FIN_ACCOUNT_ID, SECURITY_CODE, TRACK2, PRESENT_FLAG, SWIPED_FLAG, OVERFLOW_FLAG, MAX_AMOUNT, PROCESS_ATTEMPT, BILLING_POSTAL_CODE, MANUAL_AUTH_CODE, MANUAL_REF_NUM, STATUS_ID, NEEDS_NSF_RETRY, CREATED_DATE, CREATED_BY_USER_LOGIN, LAST_MODIFIED_DATE, LAST_MODIFIED_BY_USER_LOGIN, LAST_UPDATED_STAMP, LAST_UPDATED_TX_STAMP, CREATED_STAMP, CREATED_TX_STAMP FROM public.ORDER_PAYMENT_PREFERENCE WHERE ((NEEDS_NSF_RETRY = ? AND LAST_UPDATED_STAMP <= ?)) ORDER BY ORDER_ID ASC where clause:[NEEDS_NSF_RETRY=Y, LAST_UPDATED_STAMP=2016-12-20 00:00:08.5]
+2016-12-27 00:00:08,981 |OFBiz-JobQueue-0     |PaymentGatewayServices        |I| Processing failed order re-auth(s)
+2016-12-27 00:00:08,984 |OFBiz-JobQueue-0     |ServiceDispatcher             |T| Sync service [default/retryFailedAuthNsfs] finished in [485] milliseconds
+2016-12-27 00:00:09,005 |OFBiz-JobQueue-0     |PersistedServiceJob           |I| Job  [Re-Try Failed Auths] Id [10010] -- Next runtime: Wed Dec 28 00:00:00 IST 2016
+2016-12-27 00:00:09,010 |OFBiz-JobQueue-1     |GenericDAO                    |T| Ran query in 349 milli-seconds:  EntityName: FinAccountTrans Sql: SELECT FIN_ACCOUNT_TRANS_ID, FIN_ACCOUNT_TRANS_TYPE_ID, FIN_ACCOUNT_ID, PARTY_ID, GL_RECONCILIATION_ID, TRANSACTION_DATE, ENTRY_DATE, AMOUNT, PAYMENT_ID, ORDER_ID, ORDER_ITEM_SEQ_ID, PERFORMED_BY_PARTY_ID, REASON_ENUM_ID, COMMENTS, STATUS_ID, LAST_UPDATED_STAMP, LAST_UPDATED_TX_STAMP, CREATED_STAMP, CREATED_TX_STAMP FROM public.FIN_ACCOUNT_TRANS WHERE (1=0) where clause:[]
+2016-12-27 00:00:09,012 |OFBiz-JobQueue-0     |PaymentGatewayServices        |I| Processing failed order re-auth(s)
+2016-12-27 00:00:09,013 |OFBiz-JobQueue-0     |ServiceDispatcher             |T| Sync service [default/retryFailedAuths] finished in [7] milliseconds
+2016-12-27 00:00:09,034 |OFBiz-JobQueue-0     |PersistedServiceJob           |I| Job  [Extend expired Subscriptions] Id [10011] -- Next runtime: Wed Dec 28 00:00:00 IST 2016
+2016-12-27 00:00:09,038 |OFBiz-JobQueue-1     |ServiceDispatcher             |T| Sync service [default/autoFinAccountReconciliation] finished in [1546] milliseconds
+2016-12-27 00:00:09,087 |OFBiz-JobQueue-1     |PersistedServiceJob           |I| Job  [Run Auto-Reorders] Id [10012] -- Next runtime: Wed Dec 28 00:00:00 IST 2016
+2016-12-27 00:00:09,105 |OFBiz-JobQueue-1     |ServiceDispatcher             |T| Sync service [default/runShoppingListAutoReorder] finished in [18] milliseconds
+2016-12-27 00:00:09,130 |OFBiz-JobQueue-1     |PersistedServiceJob           |I| Job  [Cancels all orders after date] Id [10014] -- Next runtime: Wed Dec 28 00:00:00 IST 2016
+2016-12-27 00:00:09,807 |OFBiz-JobQueue-0     |GenericDAO                    |T| Ran query in 770 milli-seconds:  EntityName: Subscription Sql: SELECT SUBSCRIPTION_ID, DESCRIPTION, SUBSCRIPTION_RESOURCE_ID, COMMUNICATION_EVENT_ID, CONTACT_MECH_ID, ORIGINATED_FROM_PARTY_ID, ORIGINATED_FROM_ROLE_TYPE_ID, PARTY_ID, ROLE_TYPE_ID, PARTY_NEED_ID, NEED_TYPE_ID, ORDER_ID, ORDER_ITEM_SEQ_ID, PRODUCT_ID, PRODUCT_CATEGORY_ID, INVENTORY_ITEM_ID, SUBSCRIPTION_TYPE_ID, EXTERNAL_SUBSCRIPTION_ID, FROM_DATE, THRU_DATE, PURCHASE_FROM_DATE, PURCHASE_THRU_DATE, MAX_LIFE_TIME, MAX_LIFE_TIME_UOM_ID, AVAILABLE_TIME, AVAILABLE_TIME_UOM_ID, USE_COUNT_LIMIT, USE_TIME, USE_TIME_UOM_ID, AUTOMATIC_EXTEND, CANCL_AUTM_EXT_TIME, CANCL_AUTM_EXT_TIME_UOM_ID, LAST_UPDATED_STAMP, LAST_UPDATED_TX_STAMP, CREATED_STAMP, CREATED_TX_STAMP FROM public.SUBSCRIPTION WHERE ((AUTOMATIC_EXTEND = ? AND ORDER_ID IS NOT NULL AND PRODUCT_ID IS NOT NULL)) where clause:[AUTOMATIC_EXTEND=Y]
+2016-12-27 00:00:09,823 |OFBiz-JobQueue-0     |ServiceDispatcher             |T| Sync service [default/runSubscriptionAutoReorders] finished in [786] milliseconds
+2016-12-27 00:00:10,036 |OFBiz-JobQueue-1     |GenericDAO                    |T| Ran query in 608 milli-seconds:  EntityName: OrderItem Sql: SELECT ORDER_ID, ORDER_ITEM_SEQ_ID, EXTERNAL_ID, ORDER_ITEM_TYPE_ID, ORDER_ITEM_GROUP_SEQ_ID, IS_ITEM_GROUP_PRIMARY, FROM_INVENTORY_ITEM_ID, BUDGET_ID, BUDGET_ITEM_SEQ_ID, PRODUCT_ID, SUPPLIER_PRODUCT_ID, PRODUCT_FEATURE_ID, PROD_CATALOG_ID, PRODUCT_CATEGORY_ID, IS_PROMO, QUOTE_ID, QUOTE_ITEM_SEQ_ID, SHOPPING_LIST_ID, SHOPPING_LIST_ITEM_SEQ_ID, SUBSCRIPTION_ID, DEPLOYMENT_ID, QUANTITY, CANCEL_QUANTITY, SELECTED_AMOUNT, UNIT_PRICE, UNIT_LIST_PRICE, UNIT_AVERAGE_COST, UNIT_RECURRING_PRICE, IS_MODIFIED_PRICE, RECURRING_FREQ_UOM_ID, ITEM_DESCRIPTION, COMMENTS, CORRESPONDING_PO_ID, STATUS_ID, SYNC_STATUS_ID, ESTIMATED_SHIP_DATE, ESTIMATED_DELIVERY_DATE, AUTO_CANCEL_DATE, DONT_CANCEL_SET_DATE, DONT_CANCEL_SET_USER_LOGIN, SHIP_BEFORE_DATE, SHIP_AFTER_DATE, CANCEL_BACK_ORDER_DATE, OVERRIDE_GL_ACCOUNT_ID, SALES_OPPORTUNITY_ID, CHANGE_BY_USER_LOGIN_ID, LAST_UPDATED_STAMP, LAST_UPDATED_TX_STAMP, CREATED_STAMP, CREATED_TX_STAMP FROM public.ORDER_ITEM WHERE ((ORDER_ID = ?)) where clause:[ORDER_ID=DEMO10091]
+2016-12-27 00:00:10,039 |OFBiz-JobQueue-1     |ServiceDispatcher             |T| Sync service [default/cancelAllBackOrders] finished in [908] milliseconds
+2016-12-27 00:09:25,094 |-0.0.0.0-8443-exec-6 |ControlServlet                |T| [[[feeMaster(Domain:https://localhost)] Request Begun, encoding=[UTF-8]- total:0.0,since last(Begin):0.0]]
+2016-12-27 00:09:25,211 |-0.0.0.0-8443-exec-6 |UtilXml                       |E| XmlFileLoader: File jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml process error. Line: 53. Error message: cvc-complex-type.2.3: Element 'request-map' cannot have character [children], because the type's content type is element-only.
+2016-12-27 00:09:25,211 |-0.0.0.0-8443-exec-6 |UtilXml                       |E| XmlFileLoader: File jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml process error. Line: 60. Error message: cvc-complex-type.2.3: Element 'request-map' cannot have character [children], because the type's content type is element-only.
+2016-12-27 00:09:25,217 |-0.0.0.0-8443-exec-6 |ConfigXMLReader               |I| controller loaded: 0.003s, 12 requests, 9 views in jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml
+2016-12-27 00:09:25,322 |-0.0.0.0-8443-exec-6 |ConfigXMLReader               |I| controller loaded: 0.004s, 39 requests, 19 views in file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/webcommon/WEB-INF/common-controller.xml
+2016-12-27 00:09:25,400 |-0.0.0.0-8443-exec-6 |ConfigXMLReader               |I| controller loaded: 0.0s, 0 requests, 0 views in file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/webcommon/WEB-INF/handlers-controller.xml
+2016-12-27 00:09:25,864 |-0.0.0.0-8443-exec-6 |RequestHandler                |I| Rendering View [feeMaster], sessionId=E0F7026D35A0CB3B94E0EE774711007D.jvm1
+2016-12-27 00:09:26,831 |-0.0.0.0-8443-exec-6 |ServiceDispatcher             |T| Sync service [imscenter/getUserPreferenceGroup] finished in [6] milliseconds
+2016-12-27 00:09:26,960 |-0.0.0.0-8443-exec-6 |ScreenFactory                 |I| Got 9 screens in 0.124s from: file:/C:/Users/Windows/git/IMSProject/IMS/applications/imscenter/widget/imsCenterScreens.xml
+2016-12-27 00:09:27,002 |-0.0.0.0-8443-exec-6 |ScreenFactory                 |I| Got 2 screens in 0.038s from: file:/C:/Users/Windows/git/IMSProject/IMS/applications/imscenter/widget/CommonScreens.xml
+2016-12-27 00:09:27,168 |-0.0.0.0-8443-exec-6 |ScreenFactory                 |I| Got 24 screens in 0.158s from: file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/widget/CommonScreens.xml
+2016-12-27 00:09:27,310 |-0.0.0.0-8443-exec-6 |ServiceDispatcher             |T| Sync service [imscenter/getVisualThemeResources] finished in [116] milliseconds
+2016-12-27 00:09:28,501 |-0.0.0.0-8443-exec-6 |TransactionUtil               |W| No transaction in place, so not suspending.
+2016-12-27 00:09:28,621 |-0.0.0.0-8443-exec-6 |SequenceUtil                  |W| Lock failed; no sequence row was found, will try to add a new one for sequence: ServerHitBin
+2016-12-27 00:09:28,629 |-0.0.0.0-8443-exec-6 |SequenceUtil                  |I| Got bank of sequenced IDs for [ServerHitBin]; curSeqId=10000, maxSeqId=10010, bankSize=10
+2016-12-27 00:09:29,540 |-0.0.0.0-8443-exec-6 |ServerHitBin                  |I| Visit delegatorName=default, ServerHitBin delegatorName=default
+2016-12-27 00:09:30,105 |-0.0.0.0-8443-exec-6 |ControlServlet                |T| [[[feeMaster(Domain:https://localhost)] Request Done- total:5.011,since last([feeMaster(Domain...):5.011]]
+2016-12-27 00:09:59,739 |0.0.0.0-8443-exec-16 |ControlServlet                |T| [[[feeMaster(Domain:https://localhost)] Request Begun, encoding=[UTF-8]- total:0.0,since last(Begin):0.0]]
+2016-12-27 00:09:59,757 |0.0.0.0-8443-exec-16 |UtilXml                       |E| XmlFileLoader: File jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml process error. Line: 53. Error message: cvc-complex-type.2.3: Element 'request-map' cannot have character [children], because the type's content type is element-only.
+2016-12-27 00:09:59,758 |0.0.0.0-8443-exec-16 |UtilXml                       |E| XmlFileLoader: File jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml process error. Line: 60. Error message: cvc-complex-type.2.3: Element 'request-map' cannot have character [children], because the type's content type is element-only.
+2016-12-27 00:09:59,761 |0.0.0.0-8443-exec-16 |ConfigXMLReader               |I| controller loaded: 0.001s, 12 requests, 9 views in jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml
+2016-12-27 00:09:59,794 |0.0.0.0-8443-exec-16 |ConfigXMLReader               |I| controller loaded: 0.007s, 39 requests, 19 views in file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/webcommon/WEB-INF/common-controller.xml
+2016-12-27 00:09:59,812 |0.0.0.0-8443-exec-16 |ConfigXMLReader               |I| controller loaded: 0.0s, 0 requests, 0 views in file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/webcommon/WEB-INF/handlers-controller.xml
+2016-12-27 00:09:59,860 |0.0.0.0-8443-exec-16 |RequestHandler                |I| Rendering View [feeMaster], sessionId=E0F7026D35A0CB3B94E0EE774711007D.jvm1
+2016-12-27 00:10:00,217 |0.0.0.0-8443-exec-16 |ServiceDispatcher             |T| Sync service [imscenter/getUserPreferenceGroup] finished in [4] milliseconds
+2016-12-27 00:10:00,249 |0.0.0.0-8443-exec-16 |ScreenFactory                 |I| Got 9 screens in 0.026s from: file:/C:/Users/Windows/git/IMSProject/IMS/applications/imscenter/widget/imsCenterScreens.xml
+2016-12-27 00:10:00,270 |0.0.0.0-8443-exec-16 |ScreenFactory                 |I| Got 2 screens in 0.019s from: file:/C:/Users/Windows/git/IMSProject/IMS/applications/imscenter/widget/CommonScreens.xml
+2016-12-27 00:10:00,324 |0.0.0.0-8443-exec-16 |ScreenFactory                 |I| Got 24 screens in 0.049s from: file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/widget/CommonScreens.xml
+2016-12-27 00:10:00,432 |0.0.0.0-8443-exec-16 |ServiceDispatcher             |T| Sync service [imscenter/getVisualThemeResources] finished in [98] milliseconds
+2016-12-27 00:10:01,221 |0.0.0.0-8443-exec-16 |ServerHitBin                  |I| Visit delegatorName=default, ServerHitBin delegatorName=default
+2016-12-27 00:10:01,236 |0.0.0.0-8443-exec-16 |ControlServlet                |T| [[[feeMaster(Domain:https://localhost)] Request Done- total:1.497,since last([feeMaster(Domain...):1.497]]
+2016-12-27 00:10:04,698 |0.0.0.0-8443-exec-16 |ControlServlet                |T| [[[newFeeMaster(Domain:https://localhost)] Request Begun, encoding=[UTF-8]- total:0.0,since last(Begin):0.0]]
+2016-12-27 00:10:04,739 |0.0.0.0-8443-exec-16 |RequestHandler                |I| Rendering View [newFeeMaster], sessionId=E0F7026D35A0CB3B94E0EE774711007D.jvm1
+2016-12-27 00:10:04,745 |0.0.0.0-8443-exec-16 |ServiceDispatcher             |T| Sync service [imscenter/getUserPreferenceGroup] finished in [2] milliseconds
+2016-12-27 00:10:04,800 |0.0.0.0-8443-exec-16 |ServiceDispatcher             |T| Sync service [imscenter/getVisualThemeResources] finished in [30] milliseconds
+2016-12-27 00:10:05,276 |0.0.0.0-8443-exec-16 |ServerHitBin                  |I| Visit delegatorName=default, ServerHitBin delegatorName=default
+2016-12-27 00:10:05,285 |0.0.0.0-8443-exec-16 |ControlServlet                |T| [[[newFeeMaster(Domain:https://localhost)] Request Done- total:0.587,since last([newFeeMaster(Dom...):0.587]]
+2016-12-27 00:14:07,325 |OFBiz-JobQueue-0     |PersistedServiceJob           |I| Job  [Send Email] Id [10016] -- Next runtime: Tue Dec 27 00:29:07 IST 2016
+2016-12-27 00:14:07,529 |OFBiz-JobQueue-0     |ServiceDispatcher             |T| Sync service [default/sendEmailDated] finished in [202] milliseconds
+2016-12-27 22:58:14,920 |main                 |ContainerLoader               |I| [Startup] Loading containers from C:/Users/Windows/git/IMSProject/IMS/framework/base/config/ofbiz-containers.xml for loaders {main}
+2016-12-27 22:58:16,322 |main                 |ContainerLoader               |I| Loading container: component-container
+2016-12-27 22:58:16,454 |main                 |ComponentContainer            |I| Auto-Loading component directory : [C:/Users/Windows/git/IMSProject/IMS/framework]
+2016-12-27 22:58:16,728 |main                 |ComponentContainer            |I| Loading component : [base]
+2016-12-27 22:58:16,922 |main                 |ComponentContainer            |I| Loading component : [geronimo]
+2016-12-27 22:58:17,052 |main                 |ComponentContainer            |I| Loading component : [sql]
+2016-12-27 22:58:17,186 |main                 |ComponentContainer            |I| Loading component : [entity]
+2016-12-27 22:58:17,322 |main                 |ComponentContainer            |I| Loading component : [security]
+2016-12-27 22:58:17,428 |main                 |ComponentContainer            |I| Loading component : [datafile]
+2016-12-27 22:58:17,548 |main                 |ComponentContainer            |I| Loading component : [minilang]
+2016-12-27 22:58:17,680 |main                 |ComponentContainer            |I| Loading component : [common]
+2016-12-27 22:58:17,775 |main                 |ComponentContainer            |I| Loading component : [service]
+2016-12-27 22:58:17,969 |main                 |ComponentContainer            |I| Loading component : [catalina]
+2016-12-27 22:58:18,069 |main                 |ComponentContainer            |I| Loading component : [entityext]
+2016-12-27 22:58:18,134 |main                 |ComponentContainer            |I| Loading component : [bi]
+2016-12-27 22:58:18,238 |main                 |ComponentContainer            |I| Loading component : [webapp]
+2016-12-27 22:58:18,304 |main                 |ComponentContainer            |I| Loading component : [widget]
+2016-12-27 22:58:18,371 |main                 |ComponentContainer            |I| Loading component : [testtools]
+2016-12-27 22:58:18,473 |main                 |ComponentContainer            |I| Loading component : [webtools]
+2016-12-27 22:58:18,552 |main                 |ComponentContainer            |I| Loading component : [images]
+2016-12-27 22:58:18,555 |main                 |ComponentContainer            |I| Auto-Loading component directory : [C:/Users/Windows/git/IMSProject/IMS/themes]
+2016-12-27 22:58:18,626 |main                 |ComponentContainer            |I| Loading component : [flatgrey]
+2016-12-27 22:58:18,683 |main                 |ComponentContainer            |I| Loading component : [tomahawk]
+2016-12-27 22:58:18,685 |main                 |ComponentContainer            |I| Auto-Loading component directory : [C:/Users/Windows/git/IMSProject/IMS/applications]
+2016-12-27 22:58:18,786 |main                 |ComponentContainer            |I| Loading component : [party]
+2016-12-27 22:58:18,877 |main                 |ComponentContainer            |I| Loading component : [securityext]
+2016-12-27 22:58:18,915 |main                 |ComponentContainer            |I| Loading component : [content]
+2016-12-27 22:58:18,983 |main                 |ComponentContainer            |I| Loading component : [workeffort]
+2016-12-27 22:58:19,041 |main                 |ComponentContainer            |I| Loading component : [product]
+2016-12-27 22:58:19,100 |main                 |ComponentContainer            |I| Loading component : [manufacturing]
+2016-12-27 22:58:19,156 |main                 |ComponentContainer            |I| Loading component : [accounting]
+2016-12-27 22:58:19,162 |main                 |ComponentContainer            |W| Location 'C:/Users/Windows/git/IMSProject/IMS/applications/accounting/lib/securepay' does not exist
+2016-12-27 22:58:19,163 |main                 |ComponentContainer            |W| Location 'C:/Users/Windows/git/IMSProject/IMS/applications/accounting/lib/cybersource' does not exist
+2016-12-27 22:58:19,164 |main                 |ComponentContainer            |W| Location 'C:/Users/Windows/git/IMSProject/IMS/applications/accounting/lib/worldpay' does not exist
+2016-12-27 22:58:19,165 |main                 |ComponentContainer            |W| Location 'C:/Users/Windows/git/IMSProject/IMS/applications/accounting/lib/worldpay' does not exist
+2016-12-27 22:58:19,217 |main                 |ComponentContainer            |I| Loading component : [humanres]
+2016-12-27 22:58:19,261 |main                 |ComponentContainer            |I| Loading component : [order]
+2016-12-27 22:58:19,314 |main                 |ComponentContainer            |I| Loading component : [marketing]
+2016-12-27 22:58:19,363 |main                 |ComponentContainer            |I| Loading component : [imscenter]
+2016-12-27 22:58:19,399 |main                 |ComponentContainer            |I| Loading component : [commonext]
+2016-12-27 22:58:19,402 |main                 |ComponentContainer            |I| Auto-Loading component directory : [C:/Users/Windows/git/IMSProject/IMS/specialpurpose]
+2016-12-27 22:58:19,467 |main                 |ComponentContainer            |I| Loading component : [ecommerce]
+2016-12-27 22:58:19,472 |main                 |ComponentContainer            |I| Auto-Loading component directory : [C:/Users/Windows/git/IMSProject/IMS/hot-deploy]
+2016-12-27 22:58:19,500 |main                 |ComponentContainer            |I| All components loaded
+2016-12-27 22:58:19,500 |main                 |ContainerLoader               |I| Loaded container: component-container
+2016-12-27 22:58:19,507 |main                 |ContainerLoader               |I| Loading component's container: classloader-container
+2016-12-27 22:58:23,304 |main                 |ClassLoaderContainer          |I| CachedClassLoader created
+2016-12-27 22:58:23,304 |main                 |ContainerLoader               |I| Loaded component's container: classloader-container
+2016-12-27 22:58:23,304 |main                 |ContainerLoader               |I| Loading component's container: service-container
+2016-12-27 22:58:23,332 |main                 |ContainerLoader               |I| Loaded component's container: service-container
+2016-12-27 22:58:23,333 |main                 |ContainerLoader               |I| Loading component's container: catalina-container
+2016-12-27 22:58:23,458 |main                 |DelegatorFactoryImpl          |I| Creating new delegator [default] (main)
+2016-12-27 22:58:28,461 |main                 |ModelViewEntity               |W| [OrderItemQuantityReportGroupByItem]: Conversion for complex-alias needs to be implemented for cache and in-memory eval stuff to work correctly, will not work for alias: quantityOrdered
+2016-12-27 22:58:28,461 |main                 |ModelViewEntity               |W| [OrderItemQuantityReportGroupByItem]: Conversion for complex-alias needs to be implemented for cache and in-memory eval stuff to work correctly, will not work for alias: quantityOpen
+2016-12-27 22:58:28,462 |main                 |ModelViewEntity               |W| [OrderItemQuantityReportGroupByProduct]: Conversion for complex-alias needs to be implemented for cache and in-memory eval stuff to work correctly, will not work for alias: quantityOrdered
+2016-12-27 22:58:28,462 |main                 |ModelViewEntity               |W| [OrderItemQuantityReportGroupByProduct]: Conversion for complex-alias needs to be implemented for cache and in-memory eval stuff to work correctly, will not work for alias: quantityOpen
+2016-12-27 22:58:28,467 |main                 |ModelViewEntity               |W| [OrderReportSalesGroupByProduct]: Conversion for complex-alias needs to be implemented for cache and in-memory eval stuff to work correctly, will not work for alias: quantityOrdered
+2016-12-27 22:58:28,473 |main                 |ModelViewEntity               |W| [OrderItemAndShipGrpInvResAndItemSum]: Conversion for complex-alias needs to be implemented for cache and in-memory eval stuff to work correctly, will not work for alias: quantityOrdered
+2016-12-27 22:58:28,473 |main                 |ModelViewEntity               |W| [OrderItemAndShipGrpInvResAndItemSum]: Conversion for complex-alias needs to be implemented for cache and in-memory eval stuff to work correctly, will not work for alias: totQuantityAvailable
+2016-12-27 22:58:28,548 |main                 |ModelReader                   |I| FINISHED LOADING ENTITIES - ALL FILES; #Entities=846 #ViewEntities=261 #Fields=8812 #Relationships=2902 #AutoRelationships=2155
+2016-12-27 22:58:28,738 |main                 |GenericDelegator              |I| Doing entity definition check...
+2016-12-27 22:58:28,738 |main                 |ModelEntityChecker            |I| [initReservedWords] array length=1025
+2016-12-27 22:58:29,479 |main                 |GenericDelegator              |W| =-=-=-=-= Found 1 warnings when checking the entity definitions:
+2016-12-27 22:58:29,480 |main                 |GenericDelegator              |W| [FieldNameRW] Column name STATUS of entity SubjectMaster is a reserved word.
+2016-12-27 22:58:29,600 |OFBiz-config-1       |GenericDelegator              |I| Delegator "default" initializing helper "localpostolap" for entity group "org.ofbiz.olap".
+2016-12-27 22:58:29,600 |OFBiz-config-0       |GenericDelegator              |I| Delegator "default" initializing helper "localposttenant" for entity group "org.ofbiz.tenant".
+2016-12-27 22:58:29,600 |OFBiz-config-2       |GenericDelegator              |I| Delegator "default" initializing helper "localpostnew" for entity group "org.ofbiz".
+2016-12-27 22:58:29,631 |OFBiz-config-1       |GenericDelegator              |I| Doing database check as requested in entityengine.xml with addMissing=true
+2016-12-27 22:58:29,631 |OFBiz-config-0       |GenericDelegator              |I| Doing database check as requested in entityengine.xml with addMissing=true
+2016-12-27 22:58:29,631 |OFBiz-config-2       |GenericDelegator              |I| Doing database check as requested in entityengine.xml with addMissing=true
+2016-12-27 22:58:30,832 |OFBiz-config-1       |DatabaseUtil                  |E| Unable to establish a connection with the database for helperName [localpostolap]... Error was: java.sql.SQLException: Unable to acquire a new connection from the pool
+2016-12-27 22:58:30,832 |OFBiz-config-1       |DatabaseUtil                  |E| Unable to establish a connection with the database, no additional information available.
+2016-12-27 22:58:30,832 |OFBiz-config-1       |DatabaseUtil                  |E| Could not get table name information from the database, aborting.
+2016-12-27 22:58:30,832 |OFBiz-config-0       |DatabaseUtil                  |E| Unable to establish a connection with the database for helperName [localposttenant]... Error was: java.sql.SQLException: Unable to acquire a new connection from the pool
+2016-12-27 22:58:30,832 |OFBiz-config-0       |DatabaseUtil                  |E| Unable to establish a connection with the database, no additional information available.
+2016-12-27 22:58:30,832 |OFBiz-config-0       |DatabaseUtil                  |E| Could not get table name information from the database, aborting.
+2016-12-27 22:58:31,849 |OFBiz-config-2       |DatabaseUtil                  |I| Database Product Name is PostgreSQL
+2016-12-27 22:58:31,849 |OFBiz-config-2       |DatabaseUtil                  |I| Database Product Version is 9.1.23
+2016-12-27 22:58:31,849 |OFBiz-config-2       |DatabaseUtil                  |I| Database Driver Name is PostgreSQL Native Driver
+2016-12-27 22:58:31,849 |OFBiz-config-2       |DatabaseUtil                  |I| Database Driver Version is PostgreSQL 8.3 JDBC3 with SSL (build 604)
+2016-12-27 22:58:31,849 |OFBiz-config-2       |DatabaseUtil                  |I| Database Driver JDBC Version is 3.0
+2016-12-27 22:58:31,849 |OFBiz-config-2       |DatabaseUtil                  |I| Database Setting/Support Information (those with a * should be true):
+2016-12-27 22:58:31,849 |OFBiz-config-2       |DatabaseUtil                  |I| - supports transactions     [true]*
+2016-12-27 22:58:31,849 |OFBiz-config-2       |DatabaseUtil                  |I| - isolation None            [false]
+2016-12-27 22:58:31,865 |OFBiz-config-2       |DatabaseUtil                  |I| - isolation ReadCommitted   [true]
+2016-12-27 22:58:31,865 |OFBiz-config-2       |DatabaseUtil                  |I| - isolation ReadUncommitted [true]
+2016-12-27 22:58:31,865 |OFBiz-config-2       |DatabaseUtil                  |I| - isolation RepeatableRead  [true]
+2016-12-27 22:58:31,865 |OFBiz-config-2       |DatabaseUtil                  |I| - isolation Serializable    [true]
+2016-12-27 22:58:31,865 |OFBiz-config-2       |DatabaseUtil                  |I| - forward only type         [true]
+2016-12-27 22:58:31,865 |OFBiz-config-2       |DatabaseUtil                  |I| - scroll sensitive type     [false]
+2016-12-27 22:58:31,865 |OFBiz-config-2       |DatabaseUtil                  |I| - scroll insensitive type   [true]
+2016-12-27 22:58:31,865 |OFBiz-config-2       |DatabaseUtil                  |I| - is case sensitive         [false]
+2016-12-27 22:58:31,865 |OFBiz-config-2       |DatabaseUtil                  |I| - stores LowerCase          [true]
+2016-12-27 22:58:31,865 |OFBiz-config-2       |DatabaseUtil                  |I| - stores MixedCase          [false]
+2016-12-27 22:58:31,865 |OFBiz-config-2       |DatabaseUtil                  |I| - stores UpperCase          [false]
+2016-12-27 22:58:32,434 |OFBiz-config-2       |DatabaseUtil                  |I| - max table name length     [63]
+2016-12-27 22:58:32,434 |OFBiz-config-2       |DatabaseUtil                  |I| - max column name length    [63]
+2016-12-27 22:58:32,434 |OFBiz-config-2       |DatabaseUtil                  |I| - concurrent connections    [8192]
+2016-12-27 22:58:32,434 |OFBiz-config-2       |DatabaseUtil                  |I| - concurrent statements     [0]
+2016-12-27 22:58:32,434 |OFBiz-config-2       |DatabaseUtil                  |I| - ANSI SQL92 Entry          [true]
+2016-12-27 22:58:32,434 |OFBiz-config-2       |DatabaseUtil                  |I| - ANSI SQL92 Intermediate   [false]
+2016-12-27 22:58:32,434 |OFBiz-config-2       |DatabaseUtil                  |I| - ANSI SQL92 Full           [false]
+2016-12-27 22:58:32,434 |OFBiz-config-2       |DatabaseUtil                  |I| - ODBC SQL Grammar Core     [false]
+2016-12-27 22:58:32,434 |OFBiz-config-2       |DatabaseUtil                  |I| - ODBC SQL Grammar Extended [false]
+2016-12-27 22:58:32,434 |OFBiz-config-2       |DatabaseUtil                  |I| - ODBC SQL Grammar Minimum  [true]
+2016-12-27 22:58:32,434 |OFBiz-config-2       |DatabaseUtil                  |I| - outer joins               [true]*
+2016-12-27 22:58:32,434 |OFBiz-config-2       |DatabaseUtil                  |I| - limited outer joins       [true]
+2016-12-27 22:58:32,434 |OFBiz-config-2       |DatabaseUtil                  |I| - full outer joins          [true]
+2016-12-27 22:58:32,434 |OFBiz-config-2       |DatabaseUtil                  |I| - group by                  [true]*
+2016-12-27 22:58:32,434 |OFBiz-config-2       |DatabaseUtil                  |I| - group by not in select    [true]
+2016-12-27 22:58:32,434 |OFBiz-config-2       |DatabaseUtil                  |I| - column aliasing           [true]
+2016-12-27 22:58:32,434 |OFBiz-config-2       |DatabaseUtil                  |I| - order by not in select    [true]
+2016-12-27 22:58:32,450 |OFBiz-config-2       |DatabaseUtil                  |I| - alter table add column    [true]*
+2016-12-27 22:58:32,450 |OFBiz-config-2       |DatabaseUtil                  |I| - non-nullable column       [true]*
+2016-12-27 22:58:32,450 |OFBiz-config-2       |DatabaseUtil                  |I| - default fetchsize        [0]
+2016-12-27 22:58:32,450 |OFBiz-config-2       |DatabaseUtil                  |I| - named parameters         [ SKIPPED ]
+2016-12-27 22:58:32,450 |OFBiz-config-2       |DatabaseUtil                  |I| Getting Table Info From Database
+2016-12-27 22:58:32,866 |OFBiz-config-2       |DatabaseUtil                  |I| Getting Column Info From Database
+2016-12-27 22:58:34,761 |OFBiz-config-2       |DatabaseUtil                  |I| Reviewed 1634 primary key fields from database.
+2016-12-27 22:58:34,965 |main                 |ServiceDispatcher             |I| [ServiceDispatcher] : Creating new instance.
+2016-12-27 22:58:35,383 |main                 |ServiceGroupReader            |I| Loaded [  1] Group definitions from file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/servicedef/groups_test.xml
+2016-12-27 22:58:35,418 |main                 |ServiceGroupReader            |I| Loaded [  4] Group definitions from file:/C:/Users/Windows/git/IMSProject/IMS/framework/entityext/servicedef/groups.xml
+2016-12-27 22:58:35,465 |main                 |ServiceGroupReader            |I| Loaded [  2] Group definitions from file:/C:/Users/Windows/git/IMSProject/IMS/applications/workeffort/servicedef/service_groups.xml
+2016-12-27 22:58:35,503 |main                 |ServiceGroupReader            |I| Loaded [  4] Group definitions from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/groups.xml
+2016-12-27 22:58:35,665 |OFBiz-config-2       |ServiceEcaUtil                |I| Loaded [  3] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/framework/service/servicedef/secas_test_se.xml
+2016-12-27 22:58:35,665 |OFBiz-config-0       |ServiceEcaUtil                |I| Loaded [  0] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/servicedef/secas_cdyne.xml
+2016-12-27 22:58:35,687 |OFBiz-config-1       |ServiceEcaUtil                |I| Loaded [  4] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/servicedef/secas_test.xml
+2016-12-27 22:58:35,703 |OFBiz-config-3       |ServiceEcaUtil                |I| Loaded [ 22] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/party/servicedef/secas.xml
+2016-12-27 22:58:35,765 |OFBiz-config-2       |ServiceEcaUtil                |I| Loaded [ 10] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/workeffort/servicedef/secas.xml
+2016-12-27 22:58:35,787 |OFBiz-config-0       |ServiceEcaUtil                |I| Loaded [ 28] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/content/servicedef/secas.xml
+2016-12-27 22:58:35,822 |OFBiz-config-1       |ServiceEcaUtil                |I| Loaded [ 24] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/secas.xml
+2016-12-27 22:58:35,850 |OFBiz-config-3       |ServiceEcaUtil                |I| Loaded [ 23] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/secas_shipment.xml
+2016-12-27 22:58:35,878 |OFBiz-config-0       |ServiceEcaUtil                |I| Loaded [  4] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/manufacturing/servicedef/secas.xml
+2016-12-27 22:58:35,935 |OFBiz-config-2       |ServiceEcaUtil                |I| Loaded [  2] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/secas_olap.xml
+2016-12-27 22:58:35,939 |OFBiz-config-1       |ServiceEcaUtil                |I| Loaded [ 21] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/secas.xml
+2016-12-27 22:58:35,971 |OFBiz-config-0       |ServiceEcaUtil                |I| Loaded [ 22] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/secas_ledger.xml
+2016-12-27 22:58:36,008 |OFBiz-config-3       |ServiceEcaUtil                |I| Loaded [  8] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/secas_payment.xml
+2016-12-27 22:58:36,038 |OFBiz-config-2       |ServiceEcaUtil                |I| Loaded [  1] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/secas_olap.xml
+2016-12-27 22:58:36,083 |OFBiz-config-1       |ServiceEcaUtil                |I| Loaded [  6] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/secas_invoice.xml
+2016-12-27 22:58:36,110 |OFBiz-config-3       |ServiceEcaUtil                |I| Loaded [ 10] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/marketing/servicedef/secas.xml
+2016-12-27 22:58:36,135 |OFBiz-config-0       |ServiceEcaUtil                |I| Loaded [ 77] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/order/servicedef/secas.xml
+2016-12-27 22:58:36,164 |OFBiz-config-2       |ServiceEcaUtil                |I| Loaded [  0] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/commonext/servicedef/secas.xml
+2016-12-27 22:58:36,880 |OFBiz-JobPoller      |JobPoller                     |I| JobPoller thread started.
+2016-12-27 22:58:36,887 |enerFactory@62e9a6cc |JmsListenerFactory            |I| Starting JMS Listener Factory Thread
+2016-12-27 22:58:36,888 |enerFactory@62e9a6cc |JmsListenerFactory            |I| JMS Listener Factory Thread Finished; All listeners connected.
+2016-12-27 22:58:37,259 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [  2] Services from file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/servicedef/services_cdyne.xml
+2016-12-27 22:58:37,274 |OFBiz-config-2       |ModelServiceReader            |I| Loaded [  2] Services from file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/servicedef/services_olap.xml
+2016-12-27 22:58:37,290 |OFBiz-config-0       |ModelServiceReader            |I| Loaded [ 15] Services from file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/servicedef/services_email.xml
+2016-12-27 22:58:37,409 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [ 99] Services from file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/servicedef/services.xml
+2016-12-27 22:58:37,526 |OFBiz-config-0       |ModelServiceReader            |I| Loaded [ 11] Services from file:/C:/Users/Windows/git/IMSProject/IMS/framework/service/servicedef/services.xml
+2016-12-27 22:58:37,568 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [ 13] Services from file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/servicedef/services_security.xml
+2016-12-27 22:58:37,591 |OFBiz-config-2       |ModelServiceReader            |I| Loaded [ 38] Services from file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/servicedef/services_test.xml
+2016-12-27 22:58:37,655 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [ 18] Services from file:/C:/Users/Windows/git/IMSProject/IMS/framework/service/servicedef/services_test_se.xml
+2016-12-27 22:58:37,740 |OFBiz-config-2       |ModelServiceReader            |I| Loaded [  1] Services from file:/C:/Users/Windows/git/IMSProject/IMS/framework/testtools/servicedef/services.xml
+2016-12-27 22:58:37,770 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [  3] Services from file:/C:/Users/Windows/git/IMSProject/IMS/framework/bi/servicedef/services.xml
+2016-12-27 22:58:37,798 |OFBiz-config-0       |ModelServiceReader            |I| Loaded [ 41] Services from file:/C:/Users/Windows/git/IMSProject/IMS/framework/entityext/servicedef/services.xml
+2016-12-27 22:58:37,835 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [ 10] Services from file:/C:/Users/Windows/git/IMSProject/IMS/framework/webtools/servicedef/services.xml
+2016-12-27 22:58:37,954 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [ 12] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/party/servicedef/services_view.xml
+2016-12-27 22:58:37,961 |OFBiz-config-0       |ModelServiceReader            |I| Loaded [  1] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/securityext/servicedef/services.xml
+2016-12-27 22:58:38,126 |OFBiz-config-0       |ModelServiceReader            |I| Loaded [ 35] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/content/servicedef/services_contenttypes.xml
+2016-12-27 22:58:38,247 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [ 25] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/content/servicedef/services_content.xml
+2016-12-27 22:58:38,252 |OFBiz-config-2       |ModelServiceReader            |I| Loaded [156] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/party/servicedef/services.xml
+2016-12-27 22:58:38,320 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [125] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/content/servicedef/services.xml
+2016-12-27 22:58:38,354 |OFBiz-config-0       |ModelServiceReader            |I| Loaded [ 28] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/content/servicedef/services_data.xml
+2016-12-27 22:58:38,415 |OFBiz-config-2       |ModelServiceReader            |I| Loaded [ 42] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/content/servicedef/services_survey.xml
+2016-12-27 22:58:38,423 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [  2] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/content/servicedef/services_output.xml
+2016-12-27 22:58:38,472 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [  5] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/content/servicedef/services_commevent.xml
+2016-12-27 22:58:38,508 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [ 17] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/workeffort/servicedef/services_timesheet.xml
+2016-12-27 22:58:38,553 |OFBiz-config-0       |ModelServiceReader            |I| Loaded [ 19] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/content/servicedef/services_website.xml
+2016-12-27 22:58:38,578 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [  1] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/workeffort/servicedef/services_upgrade.xml
+2016-12-27 22:58:38,647 |OFBiz-config-2       |ModelServiceReader            |I| Loaded [ 99] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/workeffort/servicedef/services.xml
+2016-12-27 22:58:38,686 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [ 30] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/services_feature.xml
+2016-12-27 22:58:38,826 |OFBiz-config-0       |ModelServiceReader            |I| Loaded [107] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/services_facility.xml
+2016-12-27 22:58:38,842 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [ 22] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/services_picklist.xml
+2016-12-27 22:58:38,921 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [204] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/services.xml
+2016-12-27 22:58:38,925 |OFBiz-config-2       |ModelServiceReader            |I| Loaded [ 22] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/services_maint.xml
+2016-12-27 22:58:38,989 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [  6] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/services_shipmentgateway.xml
+2016-12-27 22:58:39,004 |OFBiz-config-0       |ModelServiceReader            |I| Loaded [ 40] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/services_pricepromo.xml
+2016-12-27 22:58:39,026 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [  3] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/services_shipment_dhl.xml
+2016-12-27 22:58:39,046 |OFBiz-config-2       |ModelServiceReader            |I| Loaded [  2] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/services_shipment_fedex.xml
+2016-12-27 22:58:39,092 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [  9] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/services_shipment_ups.xml
+2016-12-27 22:58:39,100 |OFBiz-config-0       |ModelServiceReader            |I| Loaded [ 10] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/services_shipment_usps.xml
+2016-12-27 22:58:39,185 |OFBiz-config-2       |ModelServiceReader            |I| Loaded [ 47] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/services_store.xml
+2016-12-27 22:58:39,195 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [ 16] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/services_subscription.xml
+2016-12-27 22:58:39,238 |OFBiz-config-0       |ModelServiceReader            |I| Loaded [  2] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/services_rental.xml
+2016-12-27 22:58:39,267 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [ 15] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/services_cost.xml
+2016-12-27 22:58:39,276 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [ 98] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/services_shipment.xml
+2016-12-27 22:58:39,308 |OFBiz-config-2       |ModelServiceReader            |I| Loaded [ 13] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/services_view.xml
+2016-12-27 22:58:39,351 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [  3] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/services_upgrade.xml
+2016-12-27 22:58:39,365 |OFBiz-config-0       |ModelServiceReader            |I| Loaded [  2] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/services_uom.xml
+2016-12-27 22:58:39,374 |OFBiz-config-2       |ModelServiceReader            |I| Loaded [  1] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/manufacturing/servicedef/services.xml
+2016-12-27 22:58:39,408 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [  6] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/services_olap.xml
+2016-12-27 22:58:39,451 |OFBiz-config-0       |ModelServiceReader            |I| Loaded [  5] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/manufacturing/servicedef/services_routing.xml
+2016-12-27 22:58:39,458 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [ 12] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/manufacturing/servicedef/services_calendar.xml
+2016-12-27 22:58:39,497 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [ 13] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/manufacturing/servicedef/services_bom.xml
+2016-12-27 22:58:39,533 |OFBiz-config-2       |ModelServiceReader            |I| Loaded [ 34] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/manufacturing/servicedef/services_production_run.xml
+2016-12-27 22:58:39,541 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [  5] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/manufacturing/servicedef/services_formula.xml
+2016-12-27 22:58:39,600 |OFBiz-config-1       |ModelServiceReader            |W| No parameter found for override parameter named: agreementText in service createAgreementTerm
+2016-12-27 22:58:39,600 |OFBiz-config-2       |ModelServiceReader            |I| Loaded [ 13] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_admin.xml
+2016-12-27 22:58:39,603 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [ 31] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_agreement.xml
+2016-12-27 22:58:39,618 |OFBiz-config-0       |ModelServiceReader            |I| Loaded [  5] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/manufacturing/servicedef/services_mrp.xml
+2016-12-27 22:58:39,665 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [  9] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_billing.xml
+2016-12-27 22:58:39,715 |OFBiz-config-2       |ModelServiceReader            |I| Loaded [ 58] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_finaccount.xml
+2016-12-27 22:58:39,741 |OFBiz-config-0       |ModelServiceReader            |I| Loaded [ 50] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_invoice.xml
+2016-12-27 22:58:39,764 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [ 39] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_fixedasset.xml
+2016-12-27 22:58:39,847 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [ 80] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_ledger.xml
+2016-12-27 22:58:39,849 |OFBiz-config-2       |ModelServiceReader            |I| Loaded [ 26] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_payment.xml
+2016-12-27 22:58:39,893 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [ 12] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_paymentgateway.xml
+2016-12-27 22:58:39,918 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [ 25] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_tax.xml
+2016-12-27 22:58:39,950 |OFBiz-config-2       |ModelServiceReader            |I| Loaded [  5] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_rate.xml
+2016-12-27 22:58:39,959 |OFBiz-config-0       |ModelServiceReader            |I| Loaded [ 92] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_paymentmethod.xml
+2016-12-27 22:58:39,985 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [ 10] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_cost.xml
+2016-12-27 22:58:39,996 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [  2] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_olap.xml
+2016-12-27 22:58:40,026 |OFBiz-config-0       |ModelServiceReader            |I| Loaded [  6] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_authorizedotnet.xml
+2016-12-27 22:58:40,036 |OFBiz-config-2       |ModelServiceReader            |I| Loaded [  9] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_sagepay.xml
+2016-12-27 22:58:40,068 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [  6] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_clearcommerce.xml
+2016-12-27 22:58:40,082 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [  5] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_cybersource.xml
+2016-12-27 22:58:40,087 |OFBiz-config-0       |ModelServiceReader            |I| Loaded [  8] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_paypal.xml
+2016-12-27 22:58:40,101 |OFBiz-config-2       |ModelServiceReader            |I| Loaded [  4] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_pccharge.xml
+2016-12-27 22:58:40,155 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [ 10] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_rita.xml
+2016-12-27 22:58:40,194 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [ 21] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_valuelink.xml
+2016-12-27 22:58:40,203 |OFBiz-config-0       |ModelServiceReader            |I| Loaded [ 11] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_verisign.xml
+2016-12-27 22:58:40,218 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [  5] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_securepay.xml
+2016-12-27 22:58:40,225 |OFBiz-config-2       |ModelServiceReader            |I| Loaded [  5] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_orbital.xml
+2016-12-27 22:58:40,289 |OFBiz-config-0       |ModelServiceReader            |I| Loaded [  4] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_upgrade.xml
+2016-12-27 22:58:40,320 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [109] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/humanres/servicedef/services.xml
+2016-12-27 22:58:40,333 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [ 12] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/services_perm.xml
+2016-12-27 22:58:40,452 |OFBiz-config-0       |ModelServiceReader            |I| Loaded [ 14] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/order/servicedef/services_cart.xml
+2016-12-27 22:58:40,454 |OFBiz-config-2       |ModelServiceReader            |I| Loaded [124] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/order/servicedef/services.xml
+2016-12-27 22:58:40,470 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [ 22] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/order/servicedef/services_request.xml
+2016-12-27 22:58:40,488 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [ 16] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/order/servicedef/services_shoppinglist.xml
+2016-12-27 22:58:40,564 |OFBiz-config-0       |ModelServiceReader            |I| Loaded [ 32] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/order/servicedef/services_quote.xml
+2016-12-27 22:58:40,565 |OFBiz-config-2       |ModelServiceReader            |I| Loaded [ 21] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/order/servicedef/services_requirement.xml
+2016-12-27 22:58:40,578 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [  3] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/order/servicedef/services_upgrade.xml
+2016-12-27 22:58:40,588 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [ 53] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/order/servicedef/services_return.xml
+2016-12-27 22:58:40,656 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [ 11] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/marketing/servicedef/services_opportunity.xml
+2016-12-27 22:58:40,667 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [ 64] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/marketing/servicedef/services.xml
+2016-12-27 22:58:40,667 |OFBiz-config-2       |ModelServiceReader            |I| Loaded [  3] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/order/servicedef/services_checkout.xml
+2016-12-27 22:58:40,683 |OFBiz-config-0       |ModelServiceReader            |I| Loaded [  5] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/order/servicedef/services_olap.xml
+2016-12-27 22:58:40,711 |OFBiz-config-3       |ModelServiceReader            |I| Loaded [  4] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/imscenter/servicedef/services.xml
+2016-12-27 22:58:40,732 |OFBiz-config-1       |ModelServiceReader            |I| Loaded [  6] Services from file:/C:/Users/Windows/git/IMSProject/IMS/applications/commonext/servicedef/services.xml
+2016-12-27 22:58:40,795 |OFBiz-config-0       |ServiceEcaUtil                |I| Loaded [  0] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/servicedef/secas_cdyne.xml
+2016-12-27 22:58:40,802 |OFBiz-config-1       |ServiceEcaUtil                |I| Loaded [ 22] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/party/servicedef/secas.xml
+2016-12-27 22:58:40,806 |OFBiz-config-0       |ServiceEcaUtil                |I| Loaded [ 28] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/content/servicedef/secas.xml
+2016-12-27 22:58:40,816 |OFBiz-config-2       |ServiceEcaUtil                |I| Loaded [  4] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/servicedef/secas_test.xml
+2016-12-27 22:58:40,817 |OFBiz-config-3       |ServiceEcaUtil                |I| Loaded [  3] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/framework/service/servicedef/secas_test_se.xml
+2016-12-27 22:58:40,824 |OFBiz-config-2       |ServiceEcaUtil                |I| Loaded [ 23] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/secas_shipment.xml
+2016-12-27 22:58:40,824 |OFBiz-config-1       |ServiceEcaUtil                |I| Loaded [ 10] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/workeffort/servicedef/secas.xml
+2016-12-27 22:58:40,841 |OFBiz-config-3       |ServiceEcaUtil                |I| Loaded [  2] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/secas_olap.xml
+2016-12-27 22:58:40,848 |OFBiz-config-1       |ServiceEcaUtil                |I| Loaded [ 21] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/secas.xml
+2016-12-27 22:58:40,855 |OFBiz-config-0       |ServiceEcaUtil                |I| Loaded [ 24] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/servicedef/secas.xml
+2016-12-27 22:58:40,861 |OFBiz-config-0       |ServiceEcaUtil                |I| Loaded [  1] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/secas_olap.xml
+2016-12-27 22:58:40,867 |OFBiz-config-0       |ServiceEcaUtil                |I| Loaded [  6] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/secas_invoice.xml
+2016-12-27 22:58:40,881 |OFBiz-config-0       |ServiceEcaUtil                |I| Loaded [ 77] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/order/servicedef/secas.xml
+2016-12-27 22:58:40,887 |OFBiz-config-2       |ServiceEcaUtil                |I| Loaded [  4] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/manufacturing/servicedef/secas.xml
+2016-12-27 22:58:40,887 |OFBiz-config-3       |ServiceEcaUtil                |I| Loaded [  8] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/secas_payment.xml
+2016-12-27 22:58:40,893 |OFBiz-config-2       |ServiceEcaUtil                |I| Loaded [  0] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/commonext/servicedef/secas.xml
+2016-12-27 22:58:40,900 |OFBiz-config-1       |ServiceEcaUtil                |I| Loaded [ 22] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/servicedef/secas_ledger.xml
+2016-12-27 22:58:40,914 |OFBiz-config-0       |ServiceEcaUtil                |I| Loaded [ 10] Service ECA Rules from file:/C:/Users/Windows/git/IMSProject/IMS/applications/marketing/servicedef/secas.xml
+2016-12-27 22:58:40,915 |main                 |ServiceDispatcher             |I| Registering dispatcher: entity-default
+2016-12-27 22:58:40,915 |main                 |ServiceContainer              |I| Created new dispatcher [entity-default] (main)
+2016-12-27 22:58:41,042 |OFBiz-config-0       |EntityEcaUtil                 |I| Loaded [  2] Entity ECA definitions from C:/Users/Windows/git/IMSProject/IMS/applications/accounting/entitydef/eecas.xml in loader main
+2016-12-27 22:58:41,042 |OFBiz-config-2       |EntityEcaUtil                 |I| Loaded [  4] Entity ECA definitions from C:/Users/Windows/git/IMSProject/IMS/applications/workeffort/entitydef/eecas.xml in loader main
+2016-12-27 22:58:41,043 |OFBiz-config-3       |EntityEcaUtil                 |I| Loaded [ 11] Entity ECA definitions from C:/Users/Windows/git/IMSProject/IMS/applications/content/entitydef/eecas.xml in loader main
+2016-12-27 22:58:41,043 |OFBiz-config-1       |EntityEcaUtil                 |I| Loaded [ 14] Entity ECA definitions from C:/Users/Windows/git/IMSProject/IMS/applications/product/entitydef/eecas.xml in loader main
+2016-12-27 22:58:41,082 |OFBiz-config-2       |EntityEcaUtil                 |I| Loaded [  3] Entity ECA definitions from C:/Users/Windows/git/IMSProject/IMS/applications/order/entitydef/eecas.xml in loader main
+2016-12-27 22:58:42,800 |main                 |CatalinaContainer             |I| createHost(StandardEngine[default-server], 0.0.0.0)
+2016-12-27 22:58:42,954 |main                 |CatalinaContainer             |I| Creating connector for address='0.0.0.0' port='8009' protocol='ajp'
+2016-12-27 22:58:43,286 |main                 |CatalinaContainer             |I| Creating connector for address='0.0.0.0' port='8080' protocol='http'
+2016-12-27 22:58:43,351 |main                 |CatalinaContainer             |I| Creating connector for address='0.0.0.0' port='8443' protocol='https'
+2016-12-27 22:58:43,355 |main                 |ContainerLoader               |I| Loaded component's container: catalina-container
+2016-12-27 22:58:43,371 |main                 |ContainerLoader               |I| [Startup] Starting containers...
+2016-12-27 22:58:43,371 |main                 |ContainerLoader               |I| Starting container component-container
+2016-12-27 22:58:43,371 |main                 |ContainerLoader               |I| Started container component-container
+2016-12-27 22:58:43,371 |main                 |ContainerLoader               |I| Starting container classloader-container
+2016-12-27 22:58:43,371 |main                 |ContainerLoader               |I| Started container classloader-container
+2016-12-27 22:58:43,371 |main                 |ContainerLoader               |I| Starting container service-container
+2016-12-27 22:58:43,371 |main                 |ContainerLoader               |I| Started container service-container
+2016-12-27 22:58:43,371 |main                 |ContainerLoader               |I| Starting container catalina-container
+2016-12-27 22:58:47,396 |main                 |CatalinaContainer             |I| createContext(ecomclone)
+2016-12-27 22:58:47,396 |main                 |CatalinaContainer             |I| createContext(ecommerce)
+2016-12-27 22:58:47,396 |main                 |CatalinaContainer             |I| createContext(ordermgr-js)
+2016-12-27 22:58:47,396 |main                 |CatalinaContainer             |I| createContext(ofbizsetup)
+2016-12-27 22:58:47,396 |main                 |CatalinaContainer             |I| createContext(imscenter)
+2016-12-27 22:58:47,396 |main                 |CatalinaContainer             |I| createContext(SalesForceAutomation)
+2016-12-27 22:58:47,396 |main                 |CatalinaContainer             |I| createContext(marketing)
+2016-12-27 22:58:47,396 |main                 |CatalinaContainer             |I| createContext(order)
+2016-12-27 22:58:47,396 |main                 |CatalinaContainer             |I| createContext(humanres)
+2016-12-27 22:58:47,396 |main                 |CatalinaContainer             |I| createContext(ap)
+2016-12-27 22:58:47,396 |main                 |CatalinaContainer             |I| createContext(ar)
+2016-12-27 22:58:47,396 |main                 |CatalinaContainer             |I| createContext(accounting)
+2016-12-27 22:58:47,396 |main                 |CatalinaContainer             |I| createContext(manufacturing)
+2016-12-27 22:58:47,411 |main                 |CatalinaContainer             |I| createContext(facility)
+2016-12-27 22:58:47,411 |main                 |CatalinaContainer             |I| createContext(catalog)
+2016-12-27 22:58:47,411 |main                 |CatalinaContainer             |I| createContext(ical)
+2016-12-27 22:58:47,411 |main                 |CatalinaContainer             |I| createContext(workeffort)
+2016-12-27 22:58:47,411 |main                 |CatalinaContainer             |I| createContext(content)
+2016-12-27 22:58:47,411 |main                 |CatalinaContainer             |I| createContext(party)
+2016-12-27 22:58:47,411 |main                 |CatalinaContainer             |I| createContext(tomahawk)
+2016-12-27 22:58:47,411 |main                 |CatalinaContainer             |I| createContext(flatgrey)
+2016-12-27 22:58:47,411 |main                 |CatalinaContainer             |I| createContext(images)
+2016-12-27 22:58:47,411 |main                 |CatalinaContainer             |I| createContext(webtools)
+2016-12-27 22:58:47,411 |main                 |CatalinaContainer             |I| createContext(bi)
+2016-12-27 22:58:48,121 |catalina-startup-2   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/ordermgr-js])
+2016-12-27 22:58:48,121 |catalina-startup-3   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/ofbizsetup])
+2016-12-27 22:58:48,121 |catalina-startup-0   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/ecomclone])
+2016-12-27 22:58:48,121 |catalina-startup-1   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/ecommerce])
+2016-12-27 22:58:52,181 |catalina-startup-0   |ServiceDispatcher             |I| Registering dispatcher: ecommerce
+2016-12-27 22:58:52,181 |catalina-startup-0   |ServiceContainer              |I| Created new dispatcher [ecommerce] (catalina-startup-0)
+2016-12-27 22:58:52,181 |catalina-startup-0   |ControlServlet                |I| LOADING WEBAPP [ecomclone] Open For Business - demostore, located at C:\Users\Windows\git\IMSProject\IMS\specialpurpose\ecommerce\webapp\ecomclone\
+2016-12-27 22:58:52,181 |catalina-startup-3   |ServiceDispatcher             |I| Registering dispatcher: setup
+2016-12-27 22:58:52,181 |catalina-startup-3   |ServiceContainer              |I| Created new dispatcher [setup] (catalina-startup-3)
+2016-12-27 22:58:52,235 |catalina-startup-1   |ControlServlet                |I| LOADING WEBAPP [ecommerce] Open For Business - demostore, located at C:\Users\Windows\git\IMSProject\IMS\specialpurpose\ecommerce\webapp\ecommerce\
+2016-12-27 22:58:52,235 |catalina-startup-3   |ControlServlet                |I| LOADING WEBAPP [ofbizsetup] Open For Business - Setup Manager, located at C:\Users\Windows\git\IMSProject\IMS\applications\commonext\webapp\ofbizsetup\
+2016-12-27 22:58:52,538 |catalina-startup-0   |ConfigXMLReader               |I| controller loaded: 0.0s, 0 requests, 0 views in jndi:/0.0.0.0/ecomclone/WEB-INF/controller.xml
+2016-12-27 22:58:52,639 |catalina-startup-3   |ConfigXMLReader               |I| controller loaded: 0.105s, 32 requests, 15 views in jndi:/0.0.0.0/ofbizsetup/WEB-INF/controller.xml
+2016-12-27 22:58:52,833 |catalina-startup-2   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/imscenter])
+2016-12-27 22:58:52,846 |catalina-startup-1   |ConfigXMLReader               |I| controller loaded: 0.103s, 297 requests, 97 views in jndi:/0.0.0.0/ecommerce/WEB-INF/controller.xml
+2016-12-27 22:58:52,874 |catalina-startup-0   |ConfigXMLReader               |I| controller loaded: 0.149s, 297 requests, 97 views in file:/C:/Users/Windows/git/IMSProject/IMS/specialpurpose/ecommerce/webapp/ecommerce/WEB-INF/controller.xml
+2016-12-27 22:58:52,909 |catalina-startup-3   |ConfigXMLReader               |I| controller loaded: 0.091s, 39 requests, 19 views in file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/webcommon/WEB-INF/common-controller.xml
+2016-12-27 22:58:53,097 |catalina-startup-3   |ConfigXMLReader               |I| controller loaded: 0.0s, 0 requests, 0 views in file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/webcommon/WEB-INF/handlers-controller.xml
+2016-12-27 22:58:53,161 |catalina-startup-2   |ServiceDispatcher             |I| Registering dispatcher: imscenter
+2016-12-27 22:58:53,161 |catalina-startup-2   |ServiceContainer              |I| Created new dispatcher [imscenter] (catalina-startup-2)
+2016-12-27 22:58:53,169 |catalina-startup-2   |ControlServlet                |I| LOADING WEBAPP [imscenter] Open For Business - imsCenter Component, located at C:\Users\Windows\git\IMSProject\IMS\applications\imscenter\webapp\imscenter\
+2016-12-27 22:58:53,187 |catalina-startup-3   |ConfigXMLReader               |I| controller loaded: 0.001s, 4 requests, 0 views in file:/C:/Users/Windows/git/IMSProject/IMS/applications/commonext/webapp/WEB-INF/controller.xml
+2016-12-27 22:58:53,321 |catalina-startup-2   |UtilXml                       |E| XmlFileLoader: File jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml process error. Line: 53. Error message: cvc-complex-type.2.3: Element 'request-map' cannot have character [children], because the type's content type is element-only.
+2016-12-27 22:58:53,322 |catalina-startup-2   |UtilXml                       |E| XmlFileLoader: File jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml process error. Line: 60. Error message: cvc-complex-type.2.3: Element 'request-map' cannot have character [children], because the type's content type is element-only.
+2016-12-27 22:58:53,325 |catalina-startup-2   |ConfigXMLReader               |I| controller loaded: 0.001s, 12 requests, 9 views in jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml
+2016-12-27 22:58:53,420 |catalina-startup-3   |ConfigXMLReader               |I| controller loaded: 0.033s, 249 requests, 100 views in file:/C:/Users/Windows/git/IMSProject/IMS/applications/party/webapp/partymgr/WEB-INF/controller.xml
+2016-12-27 22:58:53,498 |catalina-startup-3   |ConfigXMLReader               |I| controller loaded: 0.001s, 30 requests, 13 views in file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/webcommon/WEB-INF/security-controller.xml
+2016-12-27 22:58:53,782 |catalina-startup-3   |ConfigXMLReader               |I| controller loaded: 0.019s, 370 requests, 153 views in file:/C:/Users/Windows/git/IMSProject/IMS/applications/content/webapp/content/WEB-INF/controller.xml
+2016-12-27 22:58:53,918 |catalina-startup-2   |ServiceDispatcher             |I| Registering dispatcher: default
+2016-12-27 22:58:53,918 |catalina-startup-2   |ServiceContainer              |I| Created new dispatcher [default] (catalina-startup-2)
+2016-12-27 22:58:54,076 |catalina-startup-2   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/sfa])
+2016-12-27 22:58:54,095 |catalina-startup-3   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/marketing])
+2016-12-27 22:58:54,134 |catalina-startup-0   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/ordermgr])
+2016-12-27 22:58:54,150 |catalina-startup-1   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/humanres])
+2016-12-27 22:58:54,288 |catalina-startup-3   |ServiceDispatcher             |I| Registering dispatcher: marketing
+2016-12-27 22:58:54,288 |catalina-startup-3   |ServiceContainer              |I| Created new dispatcher [marketing] (catalina-startup-3)
+2016-12-27 22:58:54,289 |catalina-startup-3   |ControlServlet                |I| LOADING WEBAPP [marketing] Open For Business - Marketing Manager, located at C:\Users\Windows\git\IMSProject\IMS\applications\marketing\webapp\marketing\
+2016-12-27 22:58:54,309 |catalina-startup-2   |ServiceDispatcher             |I| Registering dispatcher: sfa
+2016-12-27 22:58:54,309 |catalina-startup-2   |ServiceContainer              |I| Created new dispatcher [sfa] (catalina-startup-2)
+2016-12-27 22:58:54,310 |catalina-startup-2   |ControlServlet                |I| LOADING WEBAPP [sfa] Open For Business - SFA Manager, located at C:\Users\Windows\git\IMSProject\IMS\applications\marketing\webapp\sfa\
+2016-12-27 22:58:54,350 |catalina-startup-1   |ServiceDispatcher             |I| Registering dispatcher: Humanres
+2016-12-27 22:58:54,350 |catalina-startup-1   |ServiceContainer              |I| Created new dispatcher [Humanres] (catalina-startup-1)
+2016-12-27 22:58:54,386 |catalina-startup-1   |ControlServlet                |I| LOADING WEBAPP [humanres] Open For Business - HumanRes Manager, located at C:\Users\Windows\git\IMSProject\IMS\applications\humanres\webapp\humanres\
+2016-12-27 22:58:54,423 |catalina-startup-3   |ConfigXMLReader               |I| controller loaded: 0.004s, 91 requests, 48 views in jndi:/0.0.0.0/marketing/WEB-INF/controller.xml
+2016-12-27 22:58:54,443 |catalina-startup-2   |ConfigXMLReader               |I| controller loaded: 0.002s, 50 requests, 31 views in jndi:/0.0.0.0/sfa/WEB-INF/controller.xml
+2016-12-27 22:58:54,545 |catalina-startup-3   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/ap])
+2016-12-27 22:58:54,550 |catalina-startup-2   |ConfigXMLReader               |I| controller loaded: 0.001s, 26 requests, 10 views in file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/webcommon/WEB-INF/portal-controller.xml
+2016-12-27 22:58:54,566 |catalina-startup-1   |ConfigXMLReader               |I| controller loaded: 0.033s, 229 requests, 96 views in jndi:/0.0.0.0/humanres/WEB-INF/controller.xml
+2016-12-27 22:58:54,615 |catalina-startup-0   |ServiceDispatcher             |I| Registering dispatcher: order
+2016-12-27 22:58:54,616 |catalina-startup-0   |ServiceContainer              |I| Created new dispatcher [order] (catalina-startup-0)
+2016-12-27 22:58:54,617 |catalina-startup-0   |ControlServlet                |I| LOADING WEBAPP [ordermgr] Open For Business - Order Manager, located at C:\Users\Windows\git\IMSProject\IMS\applications\order\webapp\ordermgr\
+2016-12-27 22:58:54,698 |catalina-startup-2   |ConfigXMLReader               |I| controller loaded: 0.007s, 141 requests, 65 views in file:/C:/Users/Windows/git/IMSProject/IMS/applications/workeffort/webapp/workeffort/WEB-INF/controller.xml
+2016-12-27 22:58:54,744 |catalina-startup-3   |ServiceDispatcher             |I| Registering dispatcher: ap
+2016-12-27 22:58:54,746 |catalina-startup-3   |ServiceContainer              |I| Created new dispatcher [ap] (catalina-startup-3)
+2016-12-27 22:58:54,753 |catalina-startup-3   |ControlServlet                |I| LOADING WEBAPP [ap] Open For Business - Account Payable, located at C:\Users\Windows\git\IMSProject\IMS\applications\accounting\webapp\ap\
+2016-12-27 22:58:54,772 |catalina-startup-1   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/ar])
+2016-12-27 22:58:54,815 |catalina-startup-2   |ConfigXMLReader               |I| controller loaded: 0.003s, 15 requests, 7 views in file:/C:/Users/Windows/git/IMSProject/IMS/applications/workeffort/webapp/workeffort/WEB-INF/icalendar-controller.xml
+2016-12-27 22:58:54,842 |catalina-startup-3   |ConfigXMLReader               |I| controller loaded: 0.001s, 22 requests, 14 views in jndi:/0.0.0.0/ap/WEB-INF/controller.xml
+2016-12-27 22:58:54,937 |catalina-startup-0   |ConfigXMLReader               |I| controller loaded: 0.013s, 358 requests, 146 views in jndi:/0.0.0.0/ordermgr/WEB-INF/controller.xml
+2016-12-27 22:58:54,958 |catalina-startup-2   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/accounting])
+2016-12-27 22:58:55,007 |catalina-startup-1   |ServiceDispatcher             |I| Registering dispatcher: ar
+2016-12-27 22:58:55,007 |catalina-startup-1   |ServiceContainer              |I| Created new dispatcher [ar] (catalina-startup-1)
+2016-12-27 22:58:55,008 |catalina-startup-1   |ControlServlet                |I| LOADING WEBAPP [ar] Open For Business - Account Receivable, located at C:\Users\Windows\git\IMSProject\IMS\applications\accounting\webapp\ar\
+2016-12-27 22:58:55,034 |catalina-startup-0   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/manufacturing])
+2016-12-27 22:58:55,132 |catalina-startup-1   |ConfigXMLReader               |I| controller loaded: 0.003s, 16 requests, 10 views in jndi:/0.0.0.0/ar/WEB-INF/controller.xml
+2016-12-27 22:58:55,173 |catalina-startup-3   |ConfigXMLReader               |I| controller loaded: 0.022s, 482 requests, 228 views in file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/webapp/accounting/WEB-INF/controller.xml
+2016-12-27 22:58:55,266 |catalina-startup-0   |ServiceDispatcher             |I| Registering dispatcher: manufacturing
+2016-12-27 22:58:55,266 |catalina-startup-0   |ServiceContainer              |I| Created new dispatcher [manufacturing] (catalina-startup-0)
+2016-12-27 22:58:55,267 |catalina-startup-0   |ControlServlet                |I| LOADING WEBAPP [manufacturing] Open For Business - Manufacturing Manager, located at C:\Users\Windows\git\IMSProject\IMS\applications\manufacturing\webapp\manufacturing\
+2016-12-27 22:58:55,300 |catalina-startup-2   |ServiceDispatcher             |I| Registering dispatcher: accounting
+2016-12-27 22:58:55,300 |catalina-startup-2   |ServiceContainer              |I| Created new dispatcher [accounting] (catalina-startup-2)
+2016-12-27 22:58:55,301 |catalina-startup-2   |ControlServlet                |I| LOADING WEBAPP [accounting] Open For Business - Accounting Manager, located at C:\Users\Windows\git\IMSProject\IMS\applications\accounting\webapp\accounting\
+2016-12-27 22:58:55,315 |catalina-startup-3   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/facility])
+2016-12-27 22:58:55,318 |catalina-startup-1   |ConfigXMLReader               |I| controller loaded: 0.04s, 482 requests, 228 views in file:/C:/Users/Windows/git/IMSProject/IMS/applications/accounting/webapp/accounting/WEB-INF/controller.xml
+2016-12-27 22:58:55,403 |catalina-startup-1   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/catalog])
+2016-12-27 22:58:55,421 |catalina-startup-2   |ConfigXMLReader               |I| controller loaded: 0.034s, 482 requests, 228 views in jndi:/0.0.0.0/accounting/WEB-INF/controller.xml
+2016-12-27 22:58:55,477 |catalina-startup-0   |ConfigXMLReader               |I| controller loaded: 0.006s, 136 requests, 59 views in jndi:/0.0.0.0/manufacturing/WEB-INF/controller.xml
+2016-12-27 22:58:55,531 |catalina-startup-2   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/iCalendar])
+2016-12-27 22:58:55,582 |catalina-startup-0   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/workeffort])
+2016-12-27 22:58:55,611 |catalina-startup-3   |ServiceDispatcher             |I| Registering dispatcher: facility
+2016-12-27 22:58:55,611 |catalina-startup-3   |ServiceContainer              |I| Created new dispatcher [facility] (catalina-startup-3)
+2016-12-27 22:58:55,614 |catalina-startup-3   |ControlServlet                |I| LOADING WEBAPP [facility] Open For Business - Facility Manager, located at C:\Users\Windows\git\IMSProject\IMS\applications\product\webapp\facility\
+2016-12-27 22:58:55,700 |catalina-startup-0   |ServiceDispatcher             |I| Registering dispatcher: workeffort
+2016-12-27 22:58:55,700 |catalina-startup-0   |ServiceContainer              |I| Created new dispatcher [workeffort] (catalina-startup-0)
+2016-12-27 22:58:55,701 |catalina-startup-0   |ControlServlet                |I| LOADING WEBAPP [workeffort] Open For Business - Work Manager, located at C:\Users\Windows\git\IMSProject\IMS\applications\workeffort\webapp\workeffort\
+2016-12-27 22:58:55,723 |catalina-startup-1   |ServiceDispatcher             |I| Registering dispatcher: catalog
+2016-12-27 22:58:55,724 |catalina-startup-1   |ServiceContainer              |I| Created new dispatcher [catalog] (catalina-startup-1)
+2016-12-27 22:58:55,727 |catalina-startup-1   |ControlServlet                |I| LOADING WEBAPP [catalog] Open For Business - Catalog, located at C:\Users\Windows\git\IMSProject\IMS\applications\product\webapp\catalog\
+2016-12-27 22:58:55,731 |catalina-startup-2   |ServiceDispatcher             |I| Registering dispatcher: ical
+2016-12-27 22:58:55,731 |catalina-startup-2   |ServiceContainer              |I| Created new dispatcher [ical] (catalina-startup-2)
+2016-12-27 22:58:55,754 |catalina-startup-0   |ConfigXMLReader               |I| controller loaded: 0.004s, 141 requests, 65 views in jndi:/0.0.0.0/workeffort/WEB-INF/controller.xml
+2016-12-27 22:58:55,790 |catalina-startup-3   |ConfigXMLReader               |I| controller loaded: 0.008s, 235 requests, 89 views in jndi:/0.0.0.0/facility/WEB-INF/controller.xml
+2016-12-27 22:58:55,871 |catalina-startup-0   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/content])
+2016-12-27 22:58:55,893 |catalina-startup-3   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/partymgr])
+2016-12-27 22:58:55,903 |catalina-startup-2   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/tomahawk])
+2016-12-27 22:58:55,993 |catalina-startup-1   |ConfigXMLReader               |I| controller loaded: 0.02s, 535 requests, 176 views in jndi:/0.0.0.0/catalog/WEB-INF/controller.xml
+2016-12-27 22:58:56,063 |catalina-startup-1   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/images])
+2016-12-27 22:58:56,065 |catalina-startup-0   |ServiceDispatcher             |I| Registering dispatcher: content
+2016-12-27 22:58:56,066 |catalina-startup-0   |ServiceContainer              |I| Created new dispatcher [content] (catalina-startup-0)
+2016-12-27 22:58:56,068 |catalina-startup-0   |ControlServlet                |I| LOADING WEBAPP [content] Open For Business - Content Manager, located at C:\Users\Windows\git\IMSProject\IMS\applications\content\webapp\content\
+2016-12-27 22:58:56,073 |catalina-startup-2   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/flatgrey])
+2016-12-27 22:58:56,103 |catalina-startup-3   |ServiceDispatcher             |I| Registering dispatcher: partymgr
+2016-12-27 22:58:56,103 |catalina-startup-3   |ServiceContainer              |I| Created new dispatcher [partymgr] (catalina-startup-3)
+2016-12-27 22:58:56,119 |catalina-startup-3   |ControlServlet                |I| LOADING WEBAPP [partymgr] Open For Business - Party Manager, located at C:\Users\Windows\git\IMSProject\IMS\applications\party\webapp\partymgr\
+2016-12-27 22:58:56,127 |catalina-startup-0   |ConfigXMLReader               |I| controller loaded: 0.01s, 370 requests, 153 views in jndi:/0.0.0.0/content/WEB-INF/controller.xml
+2016-12-27 22:58:56,166 |catalina-startup-3   |ConfigXMLReader               |I| controller loaded: 0.014s, 249 requests, 100 views in jndi:/0.0.0.0/partymgr/WEB-INF/controller.xml
+2016-12-27 22:58:56,226 |catalina-startup-0   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/webtools])
+2016-12-27 22:58:56,232 |catalina-startup-2   |CatalinaContainer             |I| host[StandardEngine[default-server].StandardHost[0.0.0.0]].addChild(StandardEngine[default-server].StandardHost[0.0.0.0].StandardContext[/bi])
+2016-12-27 22:58:56,351 |catalina-startup-2   |ServiceDispatcher             |I| Registering dispatcher: bi
+2016-12-27 22:58:56,351 |catalina-startup-2   |ServiceContainer              |I| Created new dispatcher [bi] (catalina-startup-2)
+2016-12-27 22:58:56,352 |catalina-startup-2   |ControlServlet                |I| LOADING WEBAPP [bi] Open For Business - Business Intelligence, located at C:\Users\Windows\git\IMSProject\IMS\framework\bi\webapp\bi\
+2016-12-27 22:58:56,428 |catalina-startup-2   |ConfigXMLReader               |I| controller loaded: 0.0s, 6 requests, 4 views in jndi:/0.0.0.0/bi/WEB-INF/controller.xml
+2016-12-27 22:58:56,463 |catalina-startup-0   |ServiceDispatcher             |I| Registering dispatcher: webtools
+2016-12-27 22:58:56,464 |catalina-startup-0   |ServiceContainer              |I| Created new dispatcher [webtools] (catalina-startup-0)
+2016-12-27 22:58:56,465 |catalina-startup-0   |ControlServlet                |I| LOADING WEBAPP [webtools] Open For Business - Web Tools, located at C:\Users\Windows\git\IMSProject\IMS\framework\webtools\webapp\webtools\
+2016-12-27 22:58:56,736 |catalina-startup-0   |ConfigXMLReader               |I| controller loaded: 0.203s, 111 requests, 70 views in jndi:/0.0.0.0/webtools/WEB-INF/controller.xml
+2016-12-27 22:58:56,767 |catalina-startup-0   |ConfigXMLReader               |I| controller loaded: 0.0s, 5 requests, 0 views in file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/webcommon/WEB-INF/tempexpr-controller.xml
+2016-12-27 22:58:57,116 |catalina-startup-0   |FreeMarkerWorker              |I| loading properties: file:/C:/Users/Windows/git/IMSProject/IMS/framework/webapp/config/freemarkerTransforms.properties
+2016-12-27 22:58:57,163 |catalina-startup-0   |FreeMarkerWorker              |I| loading properties: file:/C:/Users/Windows/git/IMSProject/IMS/framework/widget/config/freemarkerTransforms.properties
+2016-12-27 22:58:57,216 |catalina-startup-0   |FreeMarkerWorker              |I| loading properties: file:/C:/Users/Windows/git/IMSProject/IMS/applications/content/config/freemarkerTransforms.properties
+2016-12-27 22:58:57,480 |catalina-startup-0   |FreeMarkerWorker              |I| loading properties: file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/config/freemarkerTransforms.properties
+2016-12-27 22:58:57,602 |main                 |CatalinaContainer             |I| Connector AJP/1.3 @ 8009 - not-secure [org.apache.coyote.ajp.AjpProtocol] started.
+2016-12-27 22:58:57,602 |main                 |CatalinaContainer             |I| Connector "http-bio-0.0.0.0-8080" @ 8080 - not-secure [org.apache.coyote.http11.Http11Protocol] started.
+2016-12-27 22:58:57,602 |main                 |CatalinaContainer             |I| Connector "http-bio-0.0.0.0-8443" @ 8443 - secure [org.apache.coyote.http11.Http11Protocol] started.
+2016-12-27 22:58:57,602 |main                 |CatalinaContainer             |I| Started Apache Tomcat/7.0.68
+2016-12-27 22:58:57,602 |main                 |ContainerLoader               |I| Started container catalina-container
+2016-12-27 22:58:58,034 |OFBiz-JobPoller      |GenericDAO                    |T| Ran query in 347 milli-seconds:  EntityName: JobSandbox Sql: SELECT JOB_ID, JOB_NAME, RUN_TIME, POOL_ID, STATUS_ID, PARENT_JOB_ID, PREVIOUS_JOB_ID, SERVICE_NAME, LOADER_NAME, MAX_RETRY, CURRENT_RETRY_COUNT, AUTH_USER_LOGIN_ID, RUN_AS_USER, RUNTIME_DATA_ID, RECURRENCE_INFO_ID, TEMP_EXPR_ID, CURRENT_RECURRENCE_COUNT, MAX_RECURRENCE_COUNT, RUN_BY_INSTANCE_ID, START_DATE_TIME, FINISH_DATE_TIME, CANCEL_DATE_TIME, JOB_RESULT, LAST_UPDATED_STAMP, LAST_UPDATED_TX_STAMP, CREATED_STAMP, CREATED_TX_STAMP FROM public.JOB_SANDBOX WHERE ((RUN_BY_INSTANCE_ID = ? AND (STATUS_ID = ? OR STATUS_ID = ? OR STATUS_ID = ?))) ORDER BY START_DATE_TIME ASC where clause:[RUN_BY_INSTANCE_ID=ofbiz1, STATUS_ID=SERVICE_PENDING, STATUS_ID=SERVICE_QUEUED, STATUS_ID=SERVICE_RUNNING]
+2016-12-27 22:58:58,050 |OFBiz-JobPoller      |JobManager                    |I| No crashed jobs to re-schedule
+2016-12-27 22:58:58,924 |OFBiz-JobQueue-0     |TransactionUtil               |W| No transaction in place, so not suspending.
+2016-12-27 22:58:59,008 |OFBiz-JobQueue-0     |SequenceUtil                  |I| Got bank of sequenced IDs for [JobSandbox]; curSeqId=10100, maxSeqId=10200, bankSize=100
+2016-12-27 22:58:59,193 |OFBiz-JobQueue-1     |PersistedServiceJob           |I| Job  [Send Email] Id [10029] -- Next runtime: Tue Dec 27 23:13:58 IST 2016
+2016-12-27 22:58:59,208 |OFBiz-JobQueue-0     |PersistedServiceJob           |I| Job  [Auto-create Fixed Asset Maintenances] Id [10004] -- Next runtime: Tue Dec 27 23:58:58 IST 2016
+2016-12-27 22:58:59,293 |OFBiz-JobQueue-0     |AbstractEngine                |I| Loaded Service Locations: {eedcc-test=http://localhost:8080/webtools/control/httpService, entity-sync-http=http://localhost:8080/webtools/control/httpService, rita-rmi=rmi://localhost:1099/RMIDispatcher, main-rmi=rmi://localhost:1099/RMIDispatcher, main-soap=http://localhost:8080/webtools/control/SOAPService, entity-sync-rmi=rmi://localhost:1099/RMIDispatcher, main-http=http://localhost:8080/webtools/control/httpService}
+2016-12-27 22:59:01,028 |OFBiz-JobQueue-0     |ScriptUtil                    |I| The following 3 scripting engines were found:
+2016-12-27 22:59:01,028 |OFBiz-JobQueue-0     |ScriptUtil                    |I| Engine name: BeanShell Engine
+2016-12-27 22:59:01,028 |OFBiz-JobQueue-0     |ScriptUtil                    |I|   Version: 1.0
+2016-12-27 22:59:01,028 |OFBiz-JobQueue-0     |ScriptUtil                    |I|   Language: BeanShell
+2016-12-27 22:59:01,028 |OFBiz-JobQueue-0     |ScriptUtil                    |I|   Engine supports the following extensions:
+2016-12-27 22:59:01,028 |OFBiz-JobQueue-0     |ScriptUtil                    |I|     bsh
+2016-12-27 22:59:01,028 |OFBiz-JobQueue-0     |ScriptUtil                    |I|     java
+2016-12-27 22:59:01,028 |OFBiz-JobQueue-0     |ScriptUtil                    |I|   Engine has the following short names:
+2016-12-27 22:59:01,028 |OFBiz-JobQueue-0     |ScriptUtil                    |I|     beanshell
+2016-12-27 22:59:01,028 |OFBiz-JobQueue-0     |ScriptUtil                    |I|     bsh
+2016-12-27 22:59:01,028 |OFBiz-JobQueue-0     |ScriptUtil                    |I|     java
+2016-12-27 22:59:01,028 |OFBiz-JobQueue-0     |ScriptUtil                    |I| Engine name: Groovy Scripting Engine
+2016-12-27 22:59:01,028 |OFBiz-JobQueue-0     |ScriptUtil                    |I|   Version: 2.0
+2016-12-27 22:59:01,028 |OFBiz-JobQueue-0     |ScriptUtil                    |I|   Language: Groovy
+2016-12-27 22:59:01,028 |OFBiz-JobQueue-0     |ScriptUtil                    |I|   Engine supports the following extensions:
+2016-12-27 22:59:01,028 |OFBiz-JobQueue-0     |ScriptUtil                    |I|     groovy
+2016-12-27 22:59:01,028 |OFBiz-JobQueue-0     |ScriptUtil                    |I|   Engine has the following short names:
+2016-12-27 22:59:01,028 |OFBiz-JobQueue-0     |ScriptUtil                    |I|     groovy
+2016-12-27 22:59:01,028 |OFBiz-JobQueue-0     |ScriptUtil                    |I|     Groovy
+2016-12-27 22:59:01,028 |OFBiz-JobQueue-0     |ScriptUtil                    |I| Engine name: Oracle Nashorn
+2016-12-27 22:59:01,044 |OFBiz-JobQueue-0     |ScriptUtil                    |I|   Version: 1.8.0_91
+2016-12-27 22:59:01,044 |OFBiz-JobQueue-0     |ScriptUtil                    |I|   Language: ECMAScript
+2016-12-27 22:59:01,044 |OFBiz-JobQueue-0     |ScriptUtil                    |I|   Engine supports the following extensions:
+2016-12-27 22:59:01,044 |OFBiz-JobQueue-0     |ScriptUtil                    |I|     js
+2016-12-27 22:59:01,044 |OFBiz-JobQueue-0     |ScriptUtil                    |I|   Engine has the following short names:
+2016-12-27 22:59:01,044 |OFBiz-JobQueue-0     |ScriptUtil                    |I|     nashorn
+2016-12-27 22:59:01,044 |OFBiz-JobQueue-0     |ScriptUtil                    |I|     Nashorn
+2016-12-27 22:59:01,044 |OFBiz-JobQueue-0     |ScriptUtil                    |I|     js
+2016-12-27 22:59:01,044 |OFBiz-JobQueue-0     |ScriptUtil                    |I|     JS
+2016-12-27 22:59:01,044 |OFBiz-JobQueue-0     |ScriptUtil                    |I|     JavaScript
+2016-12-27 22:59:01,044 |OFBiz-JobQueue-0     |ScriptUtil                    |I|     javascript
+2016-12-27 22:59:01,044 |OFBiz-JobQueue-0     |ScriptUtil                    |I|     ECMAScript
+2016-12-27 22:59:01,044 |OFBiz-JobQueue-0     |ScriptUtil                    |I|     ecmascript
+2016-12-27 22:59:01,637 |OFBiz-JobQueue-0     |GenericDAO                    |T| Ran query in 161 milli-seconds:  EntityName: UserLoginSecurityGroup Sql: SELECT USER_LOGIN_ID, GROUP_ID, FROM_DATE, THRU_DATE, LAST_UPDATED_STAMP, LAST_UPDATED_TX_STAMP, CREATED_STAMP, CREATED_TX_STAMP FROM public.USER_LOGIN_SECURITY_GROUP WHERE ((USER_LOGIN_ID = ?)) where clause:[USER_LOGIN_ID=system]
+2016-12-27 22:59:01,813 |OFBiz-JobQueue-1     |GenericDAO                    |T| Ran query in 485 milli-seconds:  EntityName: CommunicationEvent Sql: SELECT COMMUNICATION_EVENT_ID, COMMUNICATION_EVENT_TYPE_ID, ORIG_COMM_EVENT_ID, PARENT_COMM_EVENT_ID, STATUS_ID, CONTACT_MECH_TYPE_ID, CONTACT_MECH_ID_FROM, CONTACT_MECH_ID_TO, ROLE_TYPE_ID_FROM, ROLE_TYPE_ID_TO, PARTY_ID_FROM, PARTY_ID_TO, ENTRY_DATE, DATETIME_STARTED, DATETIME_ENDED, SUBJECT, CONTENT_MIME_TYPE_ID, CONTENT, NOTE, REASON_ENUM_ID, CONTACT_LIST_ID, HEADER_STRING, FROM_STRING, TO_STRING, CC_STRING, BCC_STRING, MESSAGE_ID, LAST_UPDATED_STAMP, LAST_UPDATED_TX_STAMP, CREATED_STAMP, CREATED_TX_STAMP FROM public.COMMUNICATION_EVENT WHERE (((COMMUNICATION_EVENT_TYPE_ID = ? OR COMMUNICATION_EVENT_TYPE_ID = ?) AND STATUS_ID = ? AND (DATETIME_STARTED < ? OR DATETIME_STARTED IS NULL))) where clause:[COMMUNICATION_EVENT_TYPE_ID=EMAIL_COMMUNICATION, COMMUNICATION_EVENT_TYPE_ID=AUTO_EMAIL_COMM, STATUS_ID=COM_IN_PROGRESS, DATETIME_STARTED=2016-12-27 22:59:01.307]
+2016-12-27 22:59:01,876 |OFBiz-JobQueue-1     |ServiceDispatcher             |T| Sync service [default/sendEmailDated] finished in [2570] milliseconds
+2016-12-27 22:59:01,911 |OFBiz-JobQueue-0     |ServiceDispatcher             |T| Sync service [default/fixedAssetPermissionCheck] finished in [2600] milliseconds
+2016-12-27 22:59:02,523 |OFBiz-JobQueue-0     |GenericDAO                    |T| Ran query in 298 milli-seconds:  EntityName: FixedAsset Sql: SELECT FIXED_ASSET_ID, FIXED_ASSET_TYPE_ID, PARENT_FIXED_ASSET_ID, INSTANCE_OF_PRODUCT_ID, CLASS_ENUM_ID, PARTY_ID, ROLE_TYPE_ID, FIXED_ASSET_NAME, ACQUIRE_ORDER_ID, ACQUIRE_ORDER_ITEM_SEQ_ID, DATE_ACQUIRED, DATE_LAST_SERVICED, DATE_NEXT_SERVICE, EXPECTED_END_OF_LIFE, ACTUAL_END_OF_LIFE, PRODUCTION_CAPACITY, UOM_ID, CALENDAR_ID, SERIAL_NUMBER, LOCATED_AT_FACILITY_ID, LOCATED_AT_LOCATION_SEQ_ID, SALVAGE_VALUE, DEPRECIATION, PURCHASE_COST, PURCHASE_COST_UOM_ID, LAST_UPDATED_STAMP, LAST_UPDATED_TX_STAMP, CREATED_STAMP, CREATED_TX_STAMP FROM public.FIXED_ASSET WHERE ((INSTANCE_OF_PRODUCT_ID IS NOT NULL AND ACTUAL_END_OF_LIFE IS NULL)) where clause:[]
+2016-12-27 22:59:02,776 |OFBiz-JobQueue-0     |GenericDAO                    |T| Ran query in 253 milli-seconds:  EntityName: ProductMaint Sql: SELECT PRODUCT_ID, PRODUCT_MAINT_SEQ_ID, PRODUCT_MAINT_TYPE_ID, MAINT_NAME, MAINT_TEMPLATE_WORK_EFFORT_ID, INTERVAL_QUANTITY, INTERVAL_UOM_ID, INTERVAL_METER_TYPE_ID, REPEAT_COUNT, LAST_UPDATED_STAMP, LAST_UPDATED_TX_STAMP, CREATED_STAMP, CREATED_TX_STAMP FROM public.PRODUCT_MAINT WHERE ((PRODUCT_ID = ? AND INTERVAL_UOM_ID LIKE ?)) where clause:[PRODUCT_ID=FORKLIFT_PROPANE, INTERVAL_UOM_ID=TF_%]
+2016-12-27 22:59:02,792 |OFBiz-JobQueue-0     |ServiceDispatcher             |T| Sync service [default/createMaintsFromTimeInterval] finished in [3537] milliseconds
+2016-12-27 23:13:59,147 |OFBiz-JobQueue-1     |PersistedServiceJob           |I| Job  [Send Email] Id [10101] -- Next runtime: Tue Dec 27 23:28:59 IST 2016
+2016-12-27 23:13:59,636 |OFBiz-JobQueue-1     |ServiceDispatcher             |T| Sync service [default/sendEmailDated] finished in [488] milliseconds
+2016-12-27 23:28:59,723 |OFBiz-JobQueue-0     |PersistedServiceJob           |I| Job  [Send Email] Id [10102] -- Next runtime: Tue Dec 27 23:43:59 IST 2016
+2016-12-27 23:29:00,193 |OFBiz-JobQueue-0     |ServiceDispatcher             |T| Sync service [default/sendEmailDated] finished in [461] milliseconds
+2016-12-27 23:44:00,407 |OFBiz-JobQueue-1     |PersistedServiceJob           |I| Job  [Send Email] Id [10103] -- Next runtime: Tue Dec 27 23:59:00 IST 2016
+2016-12-27 23:44:00,541 |OFBiz-JobQueue-1     |ServiceDispatcher             |T| Sync service [default/sendEmailDated] finished in [131] milliseconds
+2016-12-27 23:56:32,573 |-0.0.0.0-8443-exec-1 |ControlEventListener          |I| Creating session: 3801185D0F0DB3654A82A5FCC992FF34.jvm1
+2016-12-27 23:56:32,573 |-0.0.0.0-8443-exec-2 |ControlEventListener          |I| Creating session: D44D170F559F77094DABDDD66740C8ED.jvm1
+2016-12-27 23:56:32,742 |-0.0.0.0-8443-exec-2 |ControlServlet                |T| [[[main(Domain:https://localhost)] Request Begun, encoding=[UTF-8]- total:0.0,since last(Begin):0.0]]
+2016-12-27 23:56:32,783 |-0.0.0.0-8443-exec-1 |ControlServlet                |T| [[[feeMaster(Domain:https://localhost)] Request Begun, encoding=[UTF-8]- total:0.0,since last(Begin):0.0]]
+2016-12-27 23:56:32,816 |-0.0.0.0-8443-exec-1 |VisitHandler                  |I| Found visitorId [10000] in cookie
+2016-12-27 23:56:32,823 |-0.0.0.0-8443-exec-2 |VisitHandler                  |I| Found visitorId [null] in cookie
+2016-12-27 23:56:32,824 |-0.0.0.0-8443-exec-2 |TransactionUtil               |W| No transaction in place, so not suspending.
+2016-12-27 23:56:33,056 |-0.0.0.0-8443-exec-1 |TransactionUtil               |W| No transaction in place, so not suspending.
+2016-12-27 23:56:33,060 |-0.0.0.0-8443-exec-2 |SequenceUtil                  |I| Got bank of sequenced IDs for [Visitor]; curSeqId=10100, maxSeqId=10200, bankSize=100
+2016-12-27 23:56:33,066 |-0.0.0.0-8443-exec-1 |SequenceUtil                  |I| Got bank of sequenced IDs for [Visit]; curSeqId=10400, maxSeqId=10500, bankSize=100
+2016-12-27 23:56:33,439 |-0.0.0.0-8443-exec-1 |UtilXml                       |E| XmlFileLoader: File jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml process error. Line: 53. Error message: cvc-complex-type.2.3: Element 'request-map' cannot have character [children], because the type's content type is element-only.
+2016-12-27 23:56:33,440 |-0.0.0.0-8443-exec-1 |UtilXml                       |E| XmlFileLoader: File jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml process error. Line: 60. Error message: cvc-complex-type.2.3: Element 'request-map' cannot have character [children], because the type's content type is element-only.
+2016-12-27 23:56:33,447 |-0.0.0.0-8443-exec-2 |UtilXml                       |E| XmlFileLoader: File jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml process error. Line: 53. Error message: cvc-complex-type.2.3: Element 'request-map' cannot have character [children], because the type's content type is element-only.
+2016-12-27 23:56:33,448 |-0.0.0.0-8443-exec-2 |UtilXml                       |E| XmlFileLoader: File jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml process error. Line: 60. Error message: cvc-complex-type.2.3: Element 'request-map' cannot have character [children], because the type's content type is element-only.
+2016-12-27 23:56:33,450 |-0.0.0.0-8443-exec-2 |ConfigXMLReader               |I| controller loaded: 0.002s, 12 requests, 9 views in jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml
+2016-12-27 23:56:33,451 |-0.0.0.0-8443-exec-1 |ConfigXMLReader               |I| controller loaded: 0.011s, 12 requests, 9 views in jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml
+2016-12-27 23:56:33,519 |-0.0.0.0-8443-exec-1 |ConfigXMLReader               |I| controller loaded: 0.002s, 39 requests, 19 views in file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/webcommon/WEB-INF/common-controller.xml
+2016-12-27 23:56:33,527 |-0.0.0.0-8443-exec-2 |ConfigXMLReader               |I| controller loaded: 0.003s, 39 requests, 19 views in file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/webcommon/WEB-INF/common-controller.xml
+2016-12-27 23:56:33,584 |-0.0.0.0-8443-exec-1 |ConfigXMLReader               |I| controller loaded: 0.001s, 0 requests, 0 views in file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/webcommon/WEB-INF/handlers-controller.xml
+2016-12-27 23:56:33,590 |-0.0.0.0-8443-exec-2 |ConfigXMLReader               |I| controller loaded: 0.0s, 0 requests, 0 views in file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/webcommon/WEB-INF/handlers-controller.xml
+2016-12-27 23:56:33,601 |-0.0.0.0-8443-exec-2 |RequestHandler                |I| This is the first request in this visit. sessionId=D44D170F559F77094DABDDD66740C8ED.jvm1
+2016-12-27 23:56:33,602 |-0.0.0.0-8443-exec-1 |RequestHandler                |I| This is the first request in this visit. sessionId=3801185D0F0DB3654A82A5FCC992FF34.jvm1
+2016-12-27 23:56:33,669 |-0.0.0.0-8443-exec-2 |LoginWorker                   |W| Could not find userLogin for external login key: EL41738447914
+2016-12-27 23:56:33,695 |-0.0.0.0-8443-exec-2 |RequestHandler                |I| Rendering View [login], sessionId=D44D170F559F77094DABDDD66740C8ED.jvm1
+2016-12-27 23:56:33,697 |-0.0.0.0-8443-exec-1 |RequestHandler                |I| Rendering View [login], sessionId=3801185D0F0DB3654A82A5FCC992FF34.jvm1
+2016-12-27 23:56:33,709 |-0.0.0.0-8443-exec-1 |UtilJ2eeCompat                |I| serverInfo: apache tomcat/7.0.68
+2016-12-27 23:56:33,709 |-0.0.0.0-8443-exec-1 |UtilJ2eeCompat                |I| Apache Tomcat detected, using response.getWriter to write text out instead of response.getOutputStream
+2016-12-27 23:56:33,709 |-0.0.0.0-8443-exec-2 |UtilJ2eeCompat                |I| serverInfo: apache tomcat/7.0.68
+2016-12-27 23:56:33,710 |-0.0.0.0-8443-exec-2 |UtilJ2eeCompat                |I| Apache Tomcat detected, using response.getWriter to write text out instead of response.getOutputStream
+2016-12-27 23:56:36,071 |-0.0.0.0-8443-exec-2 |ServiceDispatcher             |T| Sync service [imscenter/getUserPreferenceGroup] finished in [178] milliseconds
+2016-12-27 23:56:36,080 |-0.0.0.0-8443-exec-1 |ServiceDispatcher             |T| Sync service [imscenter/getUserPreferenceGroup] finished in [188] milliseconds
+2016-12-27 23:56:36,457 |-0.0.0.0-8443-exec-2 |FreeMarkerWorker              |I| loading properties: file:/C:/Users/Windows/git/IMSProject/IMS/framework/webapp/config/freemarkerTransforms.properties
+2016-12-27 23:56:36,458 |-0.0.0.0-8443-exec-2 |FreeMarkerWorker              |I| loading properties: file:/C:/Users/Windows/git/IMSProject/IMS/framework/widget/config/freemarkerTransforms.properties
+2016-12-27 23:56:36,459 |-0.0.0.0-8443-exec-2 |FreeMarkerWorker              |I| loading properties: file:/C:/Users/Windows/git/IMSProject/IMS/applications/content/config/freemarkerTransforms.properties
+2016-12-27 23:56:36,460 |-0.0.0.0-8443-exec-2 |FreeMarkerWorker              |I| loading properties: file:/C:/Users/Windows/git/IMSProject/IMS/applications/product/config/freemarkerTransforms.properties
+2016-12-27 23:56:38,822 |-0.0.0.0-8443-exec-2 |ScreenFactory                 |I| Got 24 screens in 2.684s from: file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/widget/CommonScreens.xml
+2016-12-27 23:56:38,881 |-0.0.0.0-8443-exec-1 |ScreenFactory                 |I| Got 2 screens in 0.047s from: file:/C:/Users/Windows/git/IMSProject/IMS/applications/imscenter/widget/CommonScreens.xml
+2016-12-27 23:56:39,029 |-0.0.0.0-8443-exec-1 |UtilProperties                |I| ResourceBundle imsCenterUiLabels (en_US) created in 0.135s with 15 properties
+2016-12-27 23:56:39,040 |-0.0.0.0-8443-exec-2 |UtilProperties                |I| ResourceBundle imsCenterUiLabels (en_US) created in 0.01s with 0 properties
+2016-12-27 23:56:40,367 |-0.0.0.0-8443-exec-2 |UtilProperties                |I| ResourceBundle CommonUiLabels (en_US) created in 1.327s with 837 properties
+2016-12-27 23:56:40,587 |-0.0.0.0-8443-exec-1 |UtilProperties                |I| ResourceBundle CommonUiLabels (en_US) created in 0.22s with 0 properties
+2016-12-27 23:56:43,152 |-0.0.0.0-8443-exec-1 |GenericDAO                    |T| Ran query in 219 milli-seconds:  EntityName: VisualThemeResource Sql: SELECT VISUAL_THEME_ID, RESOURCE_TYPE_ENUM_ID, SEQUENCE_ID, RESOURCE_VALUE, LAST_UPDATED_STAMP, LAST_UPDATED_TX_STAMP, CREATED_STAMP, CREATED_TX_STAMP FROM public.VISUAL_THEME_RESOURCE WHERE (VISUAL_THEME_ID = ?) ORDER BY RESOURCE_TYPE_ENUM_ID ASC, SEQUENCE_ID ASC where clause:[VISUAL_THEME_ID=TOMAHAWK]
+2016-12-27 23:56:43,152 |-0.0.0.0-8443-exec-2 |GenericDAO                    |T| Ran query in 229 milli-seconds:  EntityName: VisualThemeResource Sql: SELECT VISUAL_THEME_ID, RESOURCE_TYPE_ENUM_ID, SEQUENCE_ID, RESOURCE_VALUE, LAST_UPDATED_STAMP, LAST_UPDATED_TX_STAMP, CREATED_STAMP, CREATED_TX_STAMP FROM public.VISUAL_THEME_RESOURCE WHERE (VISUAL_THEME_ID = ?) ORDER BY RESOURCE_TYPE_ENUM_ID ASC, SEQUENCE_ID ASC where clause:[VISUAL_THEME_ID=TOMAHAWK]
+2016-12-27 23:56:43,170 |-0.0.0.0-8443-exec-1 |ServiceDispatcher             |T| Sync service [imscenter/getVisualThemeResources] finished in [561] milliseconds
+2016-12-27 23:56:43,172 |-0.0.0.0-8443-exec-2 |ServiceDispatcher             |T| Sync service [imscenter/getVisualThemeResources] finished in [557] milliseconds
+2016-12-27 23:56:44,930 |-0.0.0.0-8443-exec-1 |UtilXml                       |E| XmlFileLoader: File jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml process error. Line: 53. Error message: cvc-complex-type.2.3: Element 'request-map' cannot have character [children], because the type's content type is element-only.
+2016-12-27 23:56:44,930 |-0.0.0.0-8443-exec-2 |UtilXml                       |E| XmlFileLoader: File jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml process error. Line: 53. Error message: cvc-complex-type.2.3: Element 'request-map' cannot have character [children], because the type's content type is element-only.
+2016-12-27 23:56:44,931 |-0.0.0.0-8443-exec-2 |UtilXml                       |E| XmlFileLoader: File jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml process error. Line: 60. Error message: cvc-complex-type.2.3: Element 'request-map' cannot have character [children], because the type's content type is element-only.
+2016-12-27 23:56:44,931 |-0.0.0.0-8443-exec-1 |UtilXml                       |E| XmlFileLoader: File jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml process error. Line: 60. Error message: cvc-complex-type.2.3: Element 'request-map' cannot have character [children], because the type's content type is element-only.
+2016-12-27 23:56:44,933 |-0.0.0.0-8443-exec-1 |ConfigXMLReader               |I| controller loaded: 0.001s, 12 requests, 9 views in jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml
+2016-12-27 23:56:44,933 |-0.0.0.0-8443-exec-2 |ConfigXMLReader               |I| controller loaded: 0.001s, 12 requests, 9 views in jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml
+2016-12-27 23:56:44,962 |-0.0.0.0-8443-exec-1 |ConfigXMLReader               |I| controller loaded: 0.004s, 39 requests, 19 views in file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/webcommon/WEB-INF/common-controller.xml
+2016-12-27 23:56:44,966 |-0.0.0.0-8443-exec-2 |ConfigXMLReader               |I| controller loaded: 0.004s, 39 requests, 19 views in file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/webcommon/WEB-INF/common-controller.xml
+2016-12-27 23:56:44,981 |-0.0.0.0-8443-exec-1 |ConfigXMLReader               |I| controller loaded: 0.0s, 0 requests, 0 views in file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/webcommon/WEB-INF/handlers-controller.xml
+2016-12-27 23:56:44,988 |-0.0.0.0-8443-exec-2 |ConfigXMLReader               |I| controller loaded: 0.0s, 0 requests, 0 views in file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/webcommon/WEB-INF/handlers-controller.xml
+2016-12-27 23:56:49,456 |-0.0.0.0-8443-exec-1 |ServerHitBin                  |I| Visit delegatorName=default, ServerHitBin delegatorName=default
+2016-12-27 23:56:49,456 |-0.0.0.0-8443-exec-2 |ServerHitBin                  |I| Visit delegatorName=default, ServerHitBin delegatorName=default
+2016-12-27 23:56:49,860 |-0.0.0.0-8443-exec-2 |ControlServlet                |T| [[[main(Domain:https://localhost)] Request Done- total:17.118,since last([main(Domain:http...):17.118]]
+2016-12-27 23:56:49,861 |-0.0.0.0-8443-exec-1 |ControlServlet                |T| [[[feeMaster(Domain:https://localhost)] Request Done- total:17.077,since last([feeMaster(Domain...):17.077]]
+2016-12-27 23:56:51,838 |-0.0.0.0-8443-exec-1 |ControlServlet                |T| [[[login(Domain:https://localhost)] Request Begun, encoding=[UTF-8]- total:0.0,since last(Begin):0.0]]
+2016-12-27 23:56:52,674 |-0.0.0.0-8443-exec-1 |ServiceDispatcher             |T| Sync service [imscenter/userLogin] finished in [822] milliseconds
+2016-12-27 23:56:52,683 |-0.0.0.0-8443-exec-1 |ServiceDispatcher             |T| Sync service [imscenter/preferenceGetSetPermission] finished in [2] milliseconds
+2016-12-27 23:56:52,696 |-0.0.0.0-8443-exec-1 |ServiceDispatcher             |T| Sync service [imscenter/setUserPreference] finished in [21] milliseconds
+2016-12-27 23:56:53,007 |-0.0.0.0-8443-exec-1 |ServiceDispatcher             |T| Sync service [imscenter/getUserPreference] finished in [9] milliseconds
+2016-12-27 23:56:53,534 |-0.0.0.0-8443-exec-1 |LoginWorker                   |I| Running autoLogin check.
+2016-12-27 23:56:53,557 |-0.0.0.0-8443-exec-1 |RequestHandler                |I| Ran Event [java:org.ofbiz.webapp.control.LoginWorker#login] from [request], result is [success]
+2016-12-27 23:56:53,560 |-0.0.0.0-8443-exec-1 |RequestHandler                |I| [Doing Previous Request]: /feeMaster sessionId=3801185D0F0DB3654A82A5FCC992FF34.jvm1
+2016-12-27 23:56:53,563 |-0.0.0.0-8443-exec-1 |RequestHandler                |I| Sending redirect to: [/imscenter/control/feeMaster], sessionId=3801185D0F0DB3654A82A5FCC992FF34.jvm1
+2016-12-27 23:56:53,638 |-0.0.0.0-8443-exec-1 |ServerHitBin                  |I| Visit delegatorName=default, ServerHitBin delegatorName=default
+2016-12-27 23:56:53,646 |-0.0.0.0-8443-exec-1 |ControlServlet                |T| [[[login(Domain:https://localhost)] Request Done- total:1.808,since last([login(Domain:htt...):1.808]]
+2016-12-27 23:56:53,763 |-0.0.0.0-8443-exec-5 |ControlServlet                |T| [[[feeMaster(Domain:https://localhost)] Request Begun, encoding=[UTF-8]- total:0.001,since last(Begin):0.001]]
+2016-12-27 23:56:53,946 |-0.0.0.0-8443-exec-5 |GenericDAO                    |T| Ran query in 175 milli-seconds:  EntityName: UserLoginAndProtectedView Sql: SELECT ULSGPV.USER_LOGIN_ID, ULSGPV.FROM_DATE, ULSGPV.GROUP_ID, ULSGPV.THRU_DATE, PV.VIEW_NAME_ID, PV.MAX_HITS_DURATION, PV.TARPIT_DURATION, PV.MAX_HITS FROM public.USER_LOGIN_SECURITY_GROUP ULSGPV INNER JOIN public.PROTECTED_VIEW PV ON ULSGPV.GROUP_ID = PV.GROUP_ID WHERE ((ULSGPV.USER_LOGIN_ID = ? AND PV.VIEW_NAME_ID = ?)) where clause:[ULSGPV_USER_LOGIN_ID=admin, PV_VIEW_NAME_ID=feeMaster]
+2016-12-27 23:56:53,988 |-0.0.0.0-8443-exec-5 |RequestHandler                |I| Rendering View [feeMaster], sessionId=3801185D0F0DB3654A82A5FCC992FF34.jvm1
+2016-12-27 23:56:54,514 |-0.0.0.0-8443-exec-5 |ServiceDispatcher             |T| Sync service [imscenter/getUserPreferenceGroup] finished in [38] milliseconds
+2016-12-27 23:56:54,650 |-0.0.0.0-8443-exec-5 |ScreenFactory                 |I| Got 9 screens in 0.131s from: file:/C:/Users/Windows/git/IMSProject/IMS/applications/imscenter/widget/imsCenterScreens.xml
+2016-12-27 23:56:54,677 |-0.0.0.0-8443-exec-5 |ScreenFactory                 |I| Got 2 screens in 0.021s from: file:/C:/Users/Windows/git/IMSProject/IMS/applications/imscenter/widget/CommonScreens.xml
+2016-12-27 23:56:54,760 |-0.0.0.0-8443-exec-5 |ScreenFactory                 |I| Got 24 screens in 0.077s from: file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/widget/CommonScreens.xml
+2016-12-27 23:56:55,012 |-0.0.0.0-8443-exec-5 |ServiceDispatcher             |T| Sync service [imscenter/getVisualThemeResources] finished in [83] milliseconds
+2016-12-27 23:56:55,346 |-0.0.0.0-8443-exec-5 |UtilXml                       |E| XmlFileLoader: File jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml process error. Line: 53. Error message: cvc-complex-type.2.3: Element 'request-map' cannot have character [children], because the type's content type is element-only.
+2016-12-27 23:56:55,348 |-0.0.0.0-8443-exec-5 |UtilXml                       |E| XmlFileLoader: File jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml process error. Line: 60. Error message: cvc-complex-type.2.3: Element 'request-map' cannot have character [children], because the type's content type is element-only.
+2016-12-27 23:56:55,351 |-0.0.0.0-8443-exec-5 |ConfigXMLReader               |I| controller loaded: 0.001s, 12 requests, 9 views in jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml
+2016-12-27 23:56:55,372 |-0.0.0.0-8443-exec-5 |ConfigXMLReader               |I| controller loaded: 0.003s, 39 requests, 19 views in file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/webcommon/WEB-INF/common-controller.xml
+2016-12-27 23:56:55,389 |-0.0.0.0-8443-exec-5 |ConfigXMLReader               |I| controller loaded: 0.0s, 0 requests, 0 views in file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/webcommon/WEB-INF/handlers-controller.xml
+2016-12-27 23:56:56,451 |-0.0.0.0-8443-exec-5 |ServerHitBin                  |I| Visit delegatorName=default, ServerHitBin delegatorName=default
+2016-12-27 23:56:56,466 |-0.0.0.0-8443-exec-5 |ControlServlet                |T| [[[feeMaster(Domain:https://localhost)] Request Done- total:2.704,since last([feeMaster(Domain...):2.703]]
+2016-12-27 23:56:59,886 |-0.0.0.0-8443-exec-5 |ControlServlet                |T| [[[newFeeMaster(Domain:https://localhost)] Request Begun, encoding=[UTF-8]- total:0.0,since last(Begin):0.0]]
+2016-12-27 23:56:59,937 |-0.0.0.0-8443-exec-5 |RequestHandler                |I| Rendering View [newFeeMaster], sessionId=3801185D0F0DB3654A82A5FCC992FF34.jvm1
+2016-12-27 23:57:00,089 |-0.0.0.0-8443-exec-5 |ServiceDispatcher             |T| Sync service [imscenter/getUserPreferenceGroup] finished in [3] milliseconds
+2016-12-27 23:57:00,223 |-0.0.0.0-8443-exec-5 |UtilProperties                |I| ResourceBundle general (en_US) created in 0.118s with 23 properties
+2016-12-27 23:57:00,270 |-0.0.0.0-8443-exec-5 |ServiceDispatcher             |T| Sync service [imscenter/getVisualThemeResources] finished in [14] milliseconds
+2016-12-27 23:57:01,039 |-0.0.0.0-8443-exec-5 |ServerHitBin                  |I| Visit delegatorName=default, ServerHitBin delegatorName=default
+2016-12-27 23:57:01,079 |-0.0.0.0-8443-exec-5 |ControlServlet                |T| [[[newFeeMaster(Domain:https://localhost)] Request Done- total:1.193,since last([newFeeMaster(Dom...):1.193]]
+2016-12-27 23:58:45,541 |-0.0.0.0-8443-exec-7 |ControlServlet                |T| [[[feeMaster(Domain:https://localhost)] Request Begun, encoding=[UTF-8]- total:0.0,since last(Begin):0.0]]
+2016-12-27 23:58:45,558 |-0.0.0.0-8443-exec-7 |UtilXml                       |E| XmlFileLoader: File jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml process error. Line: 53. Error message: cvc-complex-type.2.3: Element 'request-map' cannot have character [children], because the type's content type is element-only.
+2016-12-27 23:58:45,559 |-0.0.0.0-8443-exec-7 |UtilXml                       |E| XmlFileLoader: File jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml process error. Line: 60. Error message: cvc-complex-type.2.3: Element 'request-map' cannot have character [children], because the type's content type is element-only.
+2016-12-27 23:58:45,562 |-0.0.0.0-8443-exec-7 |ConfigXMLReader               |I| controller loaded: 0.002s, 12 requests, 9 views in jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml
+2016-12-27 23:58:45,584 |-0.0.0.0-8443-exec-7 |ConfigXMLReader               |I| controller loaded: 0.005s, 39 requests, 19 views in file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/webcommon/WEB-INF/common-controller.xml
+2016-12-27 23:58:45,632 |-0.0.0.0-8443-exec-7 |ConfigXMLReader               |I| controller loaded: 0.006s, 0 requests, 0 views in file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/webcommon/WEB-INF/handlers-controller.xml
+2016-12-27 23:58:45,725 |-0.0.0.0-8443-exec-7 |RequestHandler                |I| Rendering View [feeMaster], sessionId=3801185D0F0DB3654A82A5FCC992FF34.jvm1
+2016-12-27 23:58:46,130 |-0.0.0.0-8443-exec-7 |ServiceDispatcher             |T| Sync service [imscenter/getUserPreferenceGroup] finished in [3] milliseconds
+2016-12-27 23:58:46,158 |-0.0.0.0-8443-exec-7 |ScreenFactory                 |I| Got 9 screens in 0.026s from: file:/C:/Users/Windows/git/IMSProject/IMS/applications/imscenter/widget/imsCenterScreens.xml
+2016-12-27 23:58:46,193 |-0.0.0.0-8443-exec-7 |ScreenFactory                 |I| Got 2 screens in 0.033s from: file:/C:/Users/Windows/git/IMSProject/IMS/applications/imscenter/widget/CommonScreens.xml
+2016-12-27 23:58:46,240 |-0.0.0.0-8443-exec-7 |ScreenFactory                 |I| Got 24 screens in 0.038s from: file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/widget/CommonScreens.xml
+2016-12-27 23:58:46,369 |-0.0.0.0-8443-exec-7 |ServiceDispatcher             |T| Sync service [imscenter/getVisualThemeResources] finished in [112] milliseconds
+2016-12-27 23:58:47,192 |-0.0.0.0-8443-exec-7 |ServerHitBin                  |I| Visit delegatorName=default, ServerHitBin delegatorName=default
+2016-12-27 23:58:47,209 |-0.0.0.0-8443-exec-7 |ControlServlet                |T| [[[feeMaster(Domain:https://localhost)] Request Done- total:1.668,since last([feeMaster(Domain...):1.668]]
+2016-12-27 23:58:53,223 |-0.0.0.0-8443-exec-7 |ControlServlet                |T| [[[newFeeMaster(Domain:https://localhost)] Request Begun, encoding=[UTF-8]- total:0.0,since last(Begin):0.0]]
+2016-12-27 23:58:53,263 |-0.0.0.0-8443-exec-7 |RequestHandler                |I| Rendering View [newFeeMaster], sessionId=3801185D0F0DB3654A82A5FCC992FF34.jvm1
+2016-12-27 23:58:53,389 |-0.0.0.0-8443-exec-7 |ServiceDispatcher             |T| Sync service [imscenter/getUserPreferenceGroup] finished in [3] milliseconds
+2016-12-27 23:58:53,416 |-0.0.0.0-8443-exec-7 |ServiceDispatcher             |T| Sync service [imscenter/getVisualThemeResources] finished in [4] milliseconds
+2016-12-27 23:58:54,228 |-0.0.0.0-8443-exec-7 |ServerHitBin                  |I| Visit delegatorName=default, ServerHitBin delegatorName=default
+2016-12-27 23:58:54,238 |-0.0.0.0-8443-exec-7 |ControlServlet                |T| [[[newFeeMaster(Domain:https://localhost)] Request Done- total:1.015,since last([newFeeMaster(Dom...):1.015]]
+2016-12-27 23:59:03,152 |OFBiz-JobQueue-1     |PersistedServiceJob           |I| Job  [Send Email] Id [10104] -- Next runtime: Wed Dec 28 00:14:03 IST 2016
+2016-12-27 23:59:03,153 |OFBiz-JobQueue-0     |PersistedServiceJob           |I| Job  [Auto-create Fixed Asset Maintenances] Id [10100] -- Next runtime: Wed Dec 28 00:59:03 IST 2016
+2016-12-27 23:59:03,327 |OFBiz-JobQueue-1     |ServiceDispatcher             |T| Sync service [default/sendEmailDated] finished in [164] milliseconds
+2016-12-27 23:59:03,414 |OFBiz-JobQueue-0     |ServiceDispatcher             |T| Sync service [default/fixedAssetPermissionCheck] finished in [253] milliseconds
+2016-12-27 23:59:03,881 |OFBiz-JobQueue-0     |GenericDAO                    |T| Ran query in 331 milli-seconds:  EntityName: FixedAsset Sql: SELECT FIXED_ASSET_ID, FIXED_ASSET_TYPE_ID, PARENT_FIXED_ASSET_ID, INSTANCE_OF_PRODUCT_ID, CLASS_ENUM_ID, PARTY_ID, ROLE_TYPE_ID, FIXED_ASSET_NAME, ACQUIRE_ORDER_ID, ACQUIRE_ORDER_ITEM_SEQ_ID, DATE_ACQUIRED, DATE_LAST_SERVICED, DATE_NEXT_SERVICE, EXPECTED_END_OF_LIFE, ACTUAL_END_OF_LIFE, PRODUCTION_CAPACITY, UOM_ID, CALENDAR_ID, SERIAL_NUMBER, LOCATED_AT_FACILITY_ID, LOCATED_AT_LOCATION_SEQ_ID, SALVAGE_VALUE, DEPRECIATION, PURCHASE_COST, PURCHASE_COST_UOM_ID, LAST_UPDATED_STAMP, LAST_UPDATED_TX_STAMP, CREATED_STAMP, CREATED_TX_STAMP FROM public.FIXED_ASSET WHERE ((INSTANCE_OF_PRODUCT_ID IS NOT NULL AND ACTUAL_END_OF_LIFE IS NULL)) where clause:[]
+2016-12-27 23:59:04,068 |OFBiz-JobQueue-0     |GenericDAO                    |T| Ran query in 185 milli-seconds:  EntityName: ProductMaint Sql: SELECT PRODUCT_ID, PRODUCT_MAINT_SEQ_ID, PRODUCT_MAINT_TYPE_ID, MAINT_NAME, MAINT_TEMPLATE_WORK_EFFORT_ID, INTERVAL_QUANTITY, INTERVAL_UOM_ID, INTERVAL_METER_TYPE_ID, REPEAT_COUNT, LAST_UPDATED_STAMP, LAST_UPDATED_TX_STAMP, CREATED_STAMP, CREATED_TX_STAMP FROM public.PRODUCT_MAINT WHERE ((PRODUCT_ID = ? AND INTERVAL_UOM_ID LIKE ?)) where clause:[PRODUCT_ID=FORKLIFT_PROPANE, INTERVAL_UOM_ID=TF_%]
+2016-12-27 23:59:04,083 |OFBiz-JobQueue-0     |ServiceDispatcher             |T| Sync service [default/createMaintsFromTimeInterval] finished in [923] milliseconds
+2016-12-27 23:59:33,709 |0.0.0.0-8443-exec-16 |ControlServlet                |T| [[[feeMaster(Domain:https://localhost)] Request Begun, encoding=[UTF-8]- total:0.0,since last(Begin):0.0]]
+2016-12-27 23:59:33,729 |0.0.0.0-8443-exec-16 |UtilXml                       |E| XmlFileLoader: File jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml process error. Line: 53. Error message: cvc-complex-type.2.3: Element 'request-map' cannot have character [children], because the type's content type is element-only.
+2016-12-27 23:59:33,730 |0.0.0.0-8443-exec-16 |UtilXml                       |E| XmlFileLoader: File jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml process error. Line: 60. Error message: cvc-complex-type.2.3: Element 'request-map' cannot have character [children], because the type's content type is element-only.
+2016-12-27 23:59:33,732 |0.0.0.0-8443-exec-16 |ConfigXMLReader               |I| controller loaded: 0.002s, 12 requests, 9 views in jndi:/0.0.0.0/imscenter/WEB-INF/controller.xml
+2016-12-27 23:59:33,760 |0.0.0.0-8443-exec-16 |ConfigXMLReader               |I| controller loaded: 0.005s, 39 requests, 19 views in file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/webcommon/WEB-INF/common-controller.xml
+2016-12-27 23:59:33,778 |0.0.0.0-8443-exec-16 |ConfigXMLReader               |I| controller loaded: 0.001s, 0 requests, 0 views in file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/webcommon/WEB-INF/handlers-controller.xml
+2016-12-27 23:59:33,867 |0.0.0.0-8443-exec-16 |RequestHandler                |I| Rendering View [feeMaster], sessionId=3801185D0F0DB3654A82A5FCC992FF34.jvm1
+2016-12-27 23:59:34,352 |0.0.0.0-8443-exec-16 |ServiceDispatcher             |T| Sync service [imscenter/getUserPreferenceGroup] finished in [2] milliseconds
+2016-12-27 23:59:34,375 |0.0.0.0-8443-exec-16 |ScreenFactory                 |I| Got 9 screens in 0.02s from: file:/C:/Users/Windows/git/IMSProject/IMS/applications/imscenter/widget/imsCenterScreens.xml
+2016-12-27 23:59:34,401 |0.0.0.0-8443-exec-16 |ScreenFactory                 |I| Got 2 screens in 0.021s from: file:/C:/Users/Windows/git/IMSProject/IMS/applications/imscenter/widget/CommonScreens.xml
+2016-12-27 23:59:34,468 |0.0.0.0-8443-exec-16 |ScreenFactory                 |I| Got 24 screens in 0.056s from: file:/C:/Users/Windows/git/IMSProject/IMS/framework/common/widget/CommonScreens.xml
+2016-12-27 23:59:34,555 |0.0.0.0-8443-exec-16 |ServiceDispatcher             |T| Sync service [imscenter/getVisualThemeResources] finished in [73] milliseconds
+2016-12-27 23:59:35,271 |0.0.0.0-8443-exec-16 |ServerHitBin                  |I| Visit delegatorName=default, ServerHitBin delegatorName=default
+2016-12-27 23:59:35,297 |0.0.0.0-8443-exec-16 |ControlServlet                |T| [[[feeMaster(Domain:https://localhost)] Request Done- total:1.588,since last([feeMaster(Domain...):1.588]]
+2016-12-27 23:59:37,640 |0.0.0.0-8443-exec-16 |ControlServlet                |T| [[[newFeeMaster(Domain:https://localhost)] Request Begun, encoding=[UTF-8]- total:0.0,since last(Begin):0.0]]
+2016-12-27 23:59:37,686 |0.0.0.0-8443-exec-16 |RequestHandler                |I| Rendering View [newFeeMaster], sessionId=3801185D0F0DB3654A82A5FCC992FF34.jvm1
+2016-12-27 23:59:37,712 |0.0.0.0-8443-exec-16 |ServiceDispatcher             |T| Sync service [imscenter/getUserPreferenceGroup] finished in [3] milliseconds
+2016-12-27 23:59:37,737 |0.0.0.0-8443-exec-16 |ServiceDispatcher             |T| Sync service [imscenter/getVisualThemeResources] finished in [6] milliseconds
+2016-12-27 23:59:38,329 |0.0.0.0-8443-exec-16 |ServerHitBin                  |I| Visit delegatorName=default, ServerHitBin delegatorName=default
+2016-12-27 23:59:38,339 |0.0.0.0-8443-exec-16 |ControlServlet                |T| [[[newFeeMaster(Domain:https://localhost)] Request Done- total:0.699,since last([newFeeMaster(Dom...):0.699]]

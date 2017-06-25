@@ -1,0 +1,2 @@
+0:0:0:0:0:0:0:1 - - [12/Oct/2016:23:49:49 +0530] "GET /imscenter/control/feeMaster HTTP/1.1" 404 - "-" "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0"
+0:0:0:0:0:0:0:1 - - [12/Oct/2016:23:49:50 +0530] "GET /favicon.ico HTTP/1.1" 404 - "-" "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0"

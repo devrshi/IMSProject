@@ -487,9 +487,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext-demo"/>
         <inline-jdbc
                 jdbc-driver="org.postgresql.Driver"
-                jdbc-uri="jdbc:postgresql://localhost:5432/ims0.1"
+                jdbc-uri="jdbc:postgresql://localhost:5432/ims01"
                 jdbc-username="ims"
-                jdbc-password="ims"
+                jdbc-password="password"
                 isolation-level="ReadCommitted"
                 pool-minsize="2"
                 pool-maxsize="250"
@@ -527,8 +527,8 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext-demo"/>
         <inline-jdbc
             jdbc-driver="org.postgresql.Driver"
-            jdbc-uri="jdbc:postgresql://localhost:5432/ims0.1"
-            jdbc-username="postgres"
+            jdbc-uri="jdbc:postgresql://localhost:5432/ims01"
+            jdbc-username="ims"
             jdbc-password="password"
             isolation-level="ReadCommitted"
             pool-minsize="2"

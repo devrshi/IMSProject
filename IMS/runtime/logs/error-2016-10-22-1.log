@@ -1,0 +1,6 @@
+2016-10-22 23:03:19,678 |OFBiz-config-1       |DatabaseUtil                  |E| Unable to establish a connection with the database for helperName [localpostolap]... Error was: java.sql.SQLException: Unable to acquire a new connection from the pool
+2016-10-22 23:03:19,679 |OFBiz-config-1       |DatabaseUtil                  |E| Unable to establish a connection with the database, no additional information available.
+2016-10-22 23:03:19,679 |OFBiz-config-1       |DatabaseUtil                  |E| Could not get table name information from the database, aborting.
+2016-10-22 23:03:19,680 |OFBiz-config-0       |DatabaseUtil                  |E| Unable to establish a connection with the database for helperName [localposttenant]... Error was: java.sql.SQLException: Unable to acquire a new connection from the pool
+2016-10-22 23:03:19,680 |OFBiz-config-0       |DatabaseUtil                  |E| Unable to establish a connection with the database, no additional information available.
+2016-10-22 23:03:19,680 |OFBiz-config-0       |DatabaseUtil                  |E| Could not get table name information from the database, aborting.

@@ -1,0 +1,2 @@
+0:0:0:0:0:0:0:1 - - [25/Dec/2016:12:06:56 +0530] "GET /imsportal/control/main HTTP/1.1" 404 - "-" "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0"
+0:0:0:0:0:0:0:1 - - [25/Dec/2016:12:06:57 +0530] "GET /favicon.ico HTTP/1.1" 404 - "-" "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:50.0) Gecko/20100101 Firefox/50.0"
