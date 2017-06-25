@@ -1,7 +1,7 @@
 <form name="addSubSite" method="post" action="<@ofbizUrl>createCourseMaster</@ofbizUrl>">
 <table cellspacing="8">
   <tr>
-    <td align="right">Course Name</td>
+    <td align="right">Course Name123</td>
    <td>
       <select name="courseName">
       <option value="">Select One</option>
