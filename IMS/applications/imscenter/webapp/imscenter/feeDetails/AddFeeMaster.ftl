@@ -19,6 +19,7 @@
       </select>
     </td>
   </tr>
+  Saurabh
   <tr>
     <td align="right">Course Description</td>
     <td><input type="text" size="40" name="courseDescription"/></td>
@@ -35,7 +36,7 @@
       </select>
     </td>
      </tr>
-  <tr>
+  		<tr>
    
      <td align="right">Year</td>
     <td>
@@ -44,7 +45,7 @@
         <option value="2016">2016</option>
       </select>
     </td>
-     <td align="right">Semester</td>
+     <td align="right">No of Semester</td>
     <td>
       <select name="noOfSemester">
       <option value="">Select One</option>
