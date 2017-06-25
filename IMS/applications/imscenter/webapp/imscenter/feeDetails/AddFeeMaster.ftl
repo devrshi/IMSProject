@@ -45,7 +45,7 @@
         <option value="2016">2016</option>
       </select>
     </td>
-     <td align="right">No of Semester</td>
+     <td align="right">No of Semester123</td>
     <td>
       <select name="noOfSemester">
       <option value="">Select One</option>
